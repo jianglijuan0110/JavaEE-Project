@@ -27,7 +27,7 @@ public class Monument {
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
 	@ManyToOne
-	@JoinColumn(name="codeLieu")
+	@JoinColumn(name="codeInsee")
 	private Lieu codeLieu;
 	
 	/*
