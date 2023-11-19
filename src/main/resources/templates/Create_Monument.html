@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{Layout}">
+    
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+
+            <!-- Page Content-->
+            <section layout:fragment="body" class="py-5">
+                <div class="container px-5">
+                    <!-- Monument form-->
+                    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder">Informations liées au monument :</h1>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                                
+                                <form role="form" method="post" th:action="@{/monument/save}" th:object="${monument}" id="monumentForm">
+                                
+                                    <!-- nom -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="nom" 
+                                        	th:field="*{nom}" 
+                                        	placeholder="Entrez le nom"/>
+                                        <label for="nom">Nom du monument</label>
+                                    </div>
+                                    
+                                    <!-- typeM -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="typeM" 
+                                        	th:field="*{typeM}" 
+                                        	placeholder="Entrez le type de monument"/>
+                                        <label for="typeM">Type de monument</label>
+                                    </div>
+                                    
+                                    <!-- proprietaire -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="proprietaire" 
+                                        	th:field="*{proprietaire}" 
+                                        	placeholder="Entrez le proprietaire"/>
+                                        <label for="proprietaire">Propriétaire du monument</label>
+                                    </div>
+                                    
+                                    <!-- longitude -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="longitude" 
+                                        	th:field="*{longitude}" 
+                                        	placeholder="Entrez la longitude"/>
+                                        <label for="longitude">Longitude</label>
+                                    </div>
+                                    
+                                    <!-- latitude -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="latitude" 
+                                        	th:field="*{latitude}" 
+                                        	placeholder="Entrez la latitude"/>
+                                        <label for="latitude">Latitude</label>
+                                    </div>
+                                    
+                                    <!-- Submit success message-->
+                                    <div class="d-none" id="submitSuccessMessage">
+                                        <div class="text-center mb-3">
+                                            <div class="fw-bolder">Monument crée avec succès!</div>
+                                        </div>
+                                    </div>
+                                    <!-- Submit error message-->
+                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Erreur rencontré lors de la création du monument!</div></div>
+                                    <!-- Submit Button-->
+                                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Suivant</button></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>   
+    </body>
+</html>

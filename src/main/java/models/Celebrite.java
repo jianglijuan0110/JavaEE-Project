@@ -10,6 +10,7 @@ public class Celebrite {
 	//ATTRIBUTS
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer numCelebrite;
 	
 	private String nom;

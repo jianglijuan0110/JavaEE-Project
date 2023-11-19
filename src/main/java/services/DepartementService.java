@@ -11,5 +11,7 @@ public interface DepartementService {
 	String countDepartements();
 	
 	Departement getDepartementById(String id);
+	
+	Departement saveDepartement(Departement departement);
 
 }

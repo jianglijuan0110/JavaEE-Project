@@ -34,4 +34,9 @@ public class LieuImpl implements LieuService {
 		return lieuRepository.findById(id).get();
 	}
 
+	@Override
+	public Lieu saveLieu(Lieu lieu) {
+		return lieuRepository.save(lieu);
+	}
+
 }

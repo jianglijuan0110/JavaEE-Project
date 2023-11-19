@@ -35,4 +35,9 @@ public class MonumentImpl implements MonumentService {
 		return monumentRepository.findById(id).get();
 	}
 
+	@Override
+	public Monument saveMonument(Monument monument) {
+		return monumentRepository.save(monument);
+	}
+
 }

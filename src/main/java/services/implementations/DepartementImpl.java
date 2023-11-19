@@ -33,5 +33,10 @@ public class DepartementImpl implements DepartementService {
 	public Departement getDepartementById(String id) {
 		return departementRepository.findById(id).get();
 	}
+
+	@Override
+	public Departement saveDepartement(Departement departement) {
+		return departementRepository.save(departement);
+	}
 	
 }

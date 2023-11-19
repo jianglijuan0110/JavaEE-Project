@@ -34,4 +34,9 @@ public class CelebriteImpl implements CelebriteService {
 		return celebriteRepository.findById(id).get();
 	}
 
+	@Override
+	public Celebrite saveCelebrite(Celebrite celebrite) {
+		return celebriteRepository.save(celebrite);
+	}
+
 }

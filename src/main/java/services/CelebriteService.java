@@ -11,5 +11,7 @@ public interface CelebriteService {
 	String countCelebrites();
 	
 	Celebrite getCelebriteById(Integer id);
+	
+	Celebrite saveCelebrite(Celebrite celebrite);
 
 }

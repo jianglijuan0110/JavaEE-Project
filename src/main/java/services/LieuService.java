@@ -11,4 +11,6 @@ public interface LieuService {
 	String countLieux();
 	
 	Lieu getLieuById(String id);
+	
+	Lieu saveLieu(Lieu lieu);
 }

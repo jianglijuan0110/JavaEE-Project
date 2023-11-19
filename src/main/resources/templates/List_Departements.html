@@ -2,33 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org" 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{Layout}">
-    
+
     <body class="d-flex flex-column h-100 bg-light">
         <main class="flex-shrink-0">
 
             <!-- Page Content-->
             <div layout:fragment="body" class="container px-5 my-5">
                 <div class="text-center mb-5">
-                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Liste des lieux</span></h1>
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Liste des départements</span></h1>
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-11 col-xl-9 col-xxl-8">
 
-                        <!-- Section Lieu -->
+                        <!-- Section Departement -->
                         <section>
-                            <div th:each="lieu : ${lieux}" class="card shadow border-0 rounded-4 mb-5">
+                            <div th:each="departement : ${departements}" class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-5">
                                     <div class="row align-items-center gx-5">
                                         <div class="col text-center text-lg-start mb-4 mb-lg-0">
                                             <div class="bg-light p-4 rounded-4">
-                                                <div th:text="${lieu.nomCom}" class="text-primary fw-bolder mb-2">Nom du lieu</div>
+                                                <div th:text="${departement.nomDep}" class="text-primary fw-bolder mb-2">Nom du département</div>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
                                             <div>
                                                 <ul>
-                                                    <li th:text="${lieu.longitude}">Longitude</li>
-                                                    <li th:text="${lieu.latitude}">Lattitude</li>
+                                                    <li th:text="${departement.reg}">Région</li>
+                                                    <li th:text="${departement.chefLieu.nomCom}">Chef-lieu</li>
+                                                    <li th:text="${departement.dep}">Département</li>
                                                 </ul>
                                             </div>
                                             <div style="float: right;" ><button class="btn btn-primary">Supprimer</button></div>
@@ -38,10 +39,11 @@
                             </div>
                             
                         </section>
-
+ 
                     </div>
                 </div>
             </div>
         </main>
+        
     </body>
 </html>

@@ -11,5 +11,7 @@ public interface MonumentService {
 	String countMonuments();
 	
 	Monument getMonumentById(String id);
+	
+	Monument saveMonument(Monument monument);
 
 }
