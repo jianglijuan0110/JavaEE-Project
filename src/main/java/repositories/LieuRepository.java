@@ -12,11 +12,13 @@ public interface LieuRepository extends JpaRepository<Lieu, String> {
     // other methods
 
     @Modifying
-    @Query(value = "ALTER TABLE lieu DISABLE KEYS", nativeQuery = true)
+    //@Query(value = "ALTER TABLE lieu DISABLE KEYS", nativeQuery = true)
+    @Query(value = "SET foreign_key_checks = 0", nativeQuery = true)
     void disableForeignKeyChecks();
 
     @Modifying
-    @Query(value = "ALTER TABLE lieu ENABLE KEYS", nativeQuery = true)
+    //@Query(value = "ALTER TABLE lieu ENABLE KEYS", nativeQuery = true)
+    @Query(value = "SET foreign_key_checks = 1", nativeQuery = true)
     void enableForeignKeyChecks();
 }
 
