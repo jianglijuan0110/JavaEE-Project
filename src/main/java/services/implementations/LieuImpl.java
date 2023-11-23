@@ -62,12 +62,12 @@ public class LieuImpl implements LieuService {
 	}
 
 	private void disableForeignKeyChecks(String tableName) {
-		String query = String.format("SET foreign_key_checks = 0 FOR %s", tableName);
+		String query = String.format("SET foreign_key_checks = 0", tableName);
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
 
 	private void enableForeignKeyChecks(String tableName) {
-		String query = String.format("SET foreign_key_checks = 1 FOR %s", tableName);
+		String query = String.format("SET foreign_key_checks = 1", tableName);
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
 }

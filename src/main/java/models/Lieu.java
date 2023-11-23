@@ -30,8 +30,8 @@ public class Lieu {
 	 * "ManyToOne" pour dire "plusieurs lieux, un departement"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
-	@ManyToOne
-	@JoinColumn(name="dep")
+	@ManyToOne(cascade = CascadeType.MERGE) // or CascadeType.ALL based on your requirements
+	@JoinColumn(name = "dep")
 	private Departement departement;
 	
 	/*
