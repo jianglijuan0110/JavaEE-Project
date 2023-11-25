@@ -43,14 +43,12 @@ public class DepartementController {
 
 	@GetMapping("/departement/new")
 	public String createDepartement(Model model) {
-		// Create a new Departement instance
+
 		Departement departement = new Departement();
-		// Pre-fill the "dep" field with the value of "insertedDep"
-		departement.setDep(insertedDep); // You should define "insertedDep" somewhere
-		// Add the departement object to the model
 		model.addAttribute("departement", departement);
 		return "Create_Departement";
 	}
+
 
 	@PostMapping("/departement/save")
 	public String saveDepartement(@ModelAttribute("departement") Departement departement,
