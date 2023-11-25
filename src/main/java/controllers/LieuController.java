@@ -18,13 +18,13 @@ import services.MonumentService;
 
 @Controller
 public class LieuController {
-	
+
 	@Autowired
 	private LieuService lieuService;
-	
+
 	@Autowired
 	private DepartementService departementService;
-	
+
 	@Autowired
 	private MonumentService monumentService;
 
@@ -34,7 +34,7 @@ public class LieuController {
 		this.monumentService = monumentService;
 	}
 	//---------
-	
+
 	@GetMapping("/lieux")
 	public String listLieux(Model model) {
 		List<Lieu> lieux = lieuService.getLieux();
@@ -42,30 +42,61 @@ public class LieuController {
 		return "List_Lieux";
 	}
 	//---------
-	
+
 	@GetMapping("/lieu/new")
 	public String createLieu(Model model) {
-		
+
 		Lieu lieu = new Lieu();
 		model.addAttribute("lieu", lieu);
+
 		
 		/*model.addAttribute("departements", departementService.getDepartements());
 		
 		model.addAttribute("monuments", monumentService.getMonuments());*/
 		
+
+
+		model.addAttribute("departements", departementService.getDepartements());
+
+		model.addAttribute("monuments", monumentService.getMonuments());
+
+
 		return "Create_Lieu";
 	}
 
 	@PostMapping("/lieu/save")
+
 	public String saveLieu(@ModelAttribute("lieu") Lieu lieu, Model model) {
 		
 		// Save the Lieu using the service
 		lieuService.saveLieu(lieu);
 		
+
+	public String saveLieu(@ModelAttribute("lieu") Lieu lieu,
+						   @RequestParam String codeInsee,
+						   @RequestParam String nomCom,
+						   @RequestParam double longitude,
+						   @RequestParam double latitude,
+						   @RequestParam String depId, Model model) {
+
+		// Set the values in the Lieu object
+		lieu.setCodeInsee(codeInsee);
+		lieu.setNomCom(nomCom);
+		lieu.setLongitude(longitude);
+		lieu.setLatitude(latitude);
+
+		Departement departement = departementService.getDepartementById(depId);
+
+		// Set the Departement for the Lieu object
+		lieu.setDepartement(departement);
+
+		// Save the Lieu using the service
+		lieuService.saveLieu(lieu);
+
+
 		// Redirect to the form for departement with the chosen department number
 		return "redirect:/lieux";
 	}
 
-	//---------
 
 }
