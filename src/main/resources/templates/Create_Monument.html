@@ -79,13 +79,14 @@
 										<select class="form-control" name="codeLieu" th:field="*{codeLieu.codeInsee}">
 											<option value="" selected>Sélectionner un lieu</option>
 											<option th:each="lieu : ${lieux}" th:value="${lieu.codeInsee}" th:text="${lieu.nomCom + ' (' + lieu.codeInsee + ')'}"></option>
-											<option value="">Autre</option>
+
 										</select>
 									</div>
 									
 									<div class="d-flex align-items-center justify-content-between mb-4">
 		                        		<h2></h2>
 		                                <a class="btn btn-primary px-4 py-3" th:href="@{/lieu/new}">
+                                            Ajouter un lieu
 		                                </a>
 		                            </div>
                                     

@@ -9,15 +9,19 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import models.Lieu;
+import models.Departement;
 
 import repositories.LieuRepository;
 import services.LieuService;
+import services.DepartementService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 @Service
 public class LieuImpl implements LieuService {
 
+	@Autowired
+	private DepartementService departementService;
 
 	@Autowired
 	private LieuRepository lieuRepository;
@@ -51,5 +55,21 @@ public class LieuImpl implements LieuService {
 			return lieuRepository.save(lieu);
 	}
 
+	@Override
+	@Transactional
+	public Lieu saveLieuWithDepartement(Lieu lieu, String depId) {
+		try {
+			Departement departement = departementService.getDepartementById(depId);
+			lieu.setDepartement(departement);
+			departement.getLieux().add(lieu);
+
+			// Save the Lieu, cascading will take care of the Departement
+			Lieu savedLieu = lieuRepository.save(lieu);
+
+			return savedLieu;
+		} catch (Exception e) {
+			throw new RuntimeException("Error saving Lieu with Departement: " + e.getMessage(), e);
+		}
+	}
 
 }

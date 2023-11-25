@@ -54,30 +54,41 @@ public class DepartementController {
 		
 		return "Create_Departement";
 	}
-	
+
 	@PostMapping("/departement/save")
 	public String saveDepartement(@ModelAttribute("departement") Departement departement,
-			@RequestParam("insertedDep") String insertedDep) {
-		
-		// Departement associé à insertedDep
-		/*Departement dept = departementService.getDepartementById(insertedDep);
-		
-		if(dept == null) {
-			
-			Lieu chefLieu = new Lieu();
-			departement.setChefLieu(chefLieu);
-			
-			departementService.saveDepartement(departement);
-		}*/
-		
-		// lieu associe a la cle etrangere codeInsee
-		//Lieu lieu = lieuService.getLieuById(departement.getChefLieu().getCodeInsee());
-		
-		
-		
-		// Faire la redirection vers le formulaire pour monument
-		return "redirect:/monument/new";
+								  @RequestParam String chefLieu,
+								  @RequestParam String nomDep,
+								  @RequestParam String reg,
+								  @RequestParam String dep, Model model) {
+
+		// Set the values for the Departement
+		departement.setChefLieu(chefLieu);
+		departement.setNomDep(nomDep);
+		departement.setReg(reg);
+		departement.setDep(dep);
+
+		// Create a new Lieu and set its values
+		Lieu lieu = new Lieu();
+		lieu.setCodeInsee(chefLieu);
+		lieu.setNomCom("Set the name as needed");  // Set the name as needed
+		lieu.setLongitude(0.0);  // Set the longitude as needed
+		lieu.setLatitude(0.0);   // Set the latitude as needed
+
+		// Set the Departement for the Lieu
+		lieu.setDepartement(departement);
+
+		// Set the Lieu for the Departement
+		departement.setLieu(lieu);
+
+		// Save the Departement using the service
+		departementService.saveDepartement(departement);
+
+		// Redirect to the form for Lieu with the chosen codeInsee
+		return "redirect:/lieu/new/";
 	}
-	//---------
+
+
+
 
 }

@@ -17,4 +17,7 @@ public interface DepartementService {
 	
 	List<Lieu> getChefLieu();
 
+	Departement saveDepartementWithLieu(Departement departement, String lieuCodeInsee);
+
+
 }
