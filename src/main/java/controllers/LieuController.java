@@ -8,18 +8,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import models.Lieu;
+import services.DepartementService;
 import services.LieuService;
+import services.MonumentService;
 
 @Controller
 public class LieuController {
 	
 	@Autowired
 	private LieuService lieuService;
+	
+	@Autowired
+	private DepartementService departementService;
+	
+	@Autowired
+	private MonumentService monumentService;
 
-	public LieuController(LieuService lieuService) {
+	public LieuController(LieuService lieuService, DepartementService departementService, MonumentService monumentService) {
 		this.lieuService = lieuService;
+		this.departementService = departementService;
+		this.monumentService = monumentService;
 	}
 	//---------
 	
@@ -33,15 +44,28 @@ public class LieuController {
 	
 	@GetMapping("/lieu/new")
 	public String createLieu(Model model) {
+		
 		Lieu lieu = new Lieu();
 		model.addAttribute("lieu", lieu);
+		
+		model.addAttribute("departements", departementService.getDepartements());
+		
+		model.addAttribute("monuments", monumentService.getMonuments());
+		
 		return "Create_Lieu";
 	}
 	
 	@PostMapping("/lieu/save")
-	public String saveLieu(@ModelAttribute("lieu") Lieu lieu) {
-		lieuService.saveLieu(lieu);
-		return "redirect:/lieux";
+	public String saveLieu(@ModelAttribute("lieu") Lieu lieu,
+			@RequestParam("insertedDep") String insertedDep, Model model) {
+		
+		// Ajoutez la valeur du département au modèle pour le formulaire departementForm
+	    model.addAttribute("insertedDep", insertedDep);
+		
+        lieuService.saveLieu(lieu);
+
+		// Faire la redirection vers le formulaire pour département avec le numero de departement choisit
+		return "redirect:/departement/new/" + insertedDep;
 	}
 	//---------
 

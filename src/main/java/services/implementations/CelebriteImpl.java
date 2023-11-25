@@ -31,7 +31,7 @@ public class CelebriteImpl implements CelebriteService {
 
 	@Override
 	public Celebrite getCelebriteById(Integer id) {
-		return celebriteRepository.findById(id).get();
+		return celebriteRepository.findById(id).orElse(null);
 	}
 
 	@Override

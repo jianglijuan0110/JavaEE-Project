@@ -5,3 +5,14 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+
+function toggleDepartementNew() {
+    var dep = document.getElementById("dep");
+    var deptNew = document.getElementById("deptNew");
+
+    if (dep.option.value === "NOUVEAU_DEPARTEMENT") {
+        deptNew.style.display = "block";
+    } else {
+        deptNew.style.display = "none";
+    }
+}

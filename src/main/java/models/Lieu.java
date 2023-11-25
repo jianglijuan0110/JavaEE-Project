@@ -30,9 +30,16 @@ public class Lieu {
 	 * "ManyToOne" pour dire "plusieurs lieux, un departement"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL) // or CascadeType.MERGE based on your requirements
 	@JoinColumn(name="dep")
 	private Departement departement;
+	
+	/*
+	 * Champ referenciant "dep" pour au cas ou il n'y aurait pas de département associé au lieu
+	 * "Transient" pour indiquer à l'ORM que le champ ne doit pas être persisté dans la base de données
+	 */
+    @Transient
+    private String departementNew;
 	
 	/*
 	 * "OneToOne" pour dire "un chef de lieu, un departement"
@@ -47,13 +54,12 @@ public class Lieu {
 	
 	public Lieu() {}
 
-	public Lieu(String codeInsee, String nomCom, double longitude, double latitude, List<Monument> monuments) {
+	public Lieu(String codeInsee, String nomCom, double longitude, double latitude) {
 		super();
 		this.codeInsee = codeInsee;
 		this.nomCom = nomCom;
 		this.longitude = longitude;
 		this.latitude = latitude;
-		this.monuments = monuments;
 	}
 	
 	
@@ -119,6 +125,15 @@ public class Lieu {
 
 	public void setDepartementCheflieu(Departement departementCheflieu) {
 		this.departementCheflieu = departementCheflieu;
+	}
+	//---------
+
+	public String getDepartementNew() {
+		return departementNew;
+	}
+
+	public void setDepartementNew(String departementNew) {
+		this.departementNew = departementNew;
 	}
 	
 	

@@ -9,7 +9,7 @@
             <!-- Page Content-->
             <section layout:fragment="body" class="py-5">
                 <div class="container px-5">
-                    <!-- Monument form-->
+                    <!-- Departement form-->
                     <div class="bg-light rounded-4 py-5 px-4 px-md-5">
                         <div class="text-center mb-5">
                             <h1 class="fw-bolder">Département où se situe le monument :</h1>
@@ -19,6 +19,10 @@
                                 
                                 <form role="form" method="post" th:action="@{/departement/save}" th:object="${departement}" id="departementForm">
                                 
+                                	<!-- Champ en lecture seule pour insertedDep -->
+								    <label for="insertedDep">Numéro de département:</label>
+								    <input type="text" id="insertedDep" name="insertedDep" value="${insertedDep}" readonly />
+	                                
                                     <!-- nomDep -->
                                     <div class="form-floating mb-3">
                                         <input 
@@ -30,7 +34,7 @@
                                         <label for="nomDep">Nom du département</label>
                                     </div>
                                     
-                                    <!-- dep -->
+                                    <!-- dep 
                                     <div class="form-floating mb-3">
                                         <input 
                                         	class="form-control" 
@@ -39,7 +43,7 @@
                                         	th:field="*{dep}" 
                                         	placeholder="Entrez le numéro de département"/>
                                         <label for="dep">Numéro de département</label>
-                                    </div>
+                                    </div>-->
                                     
                                     <!-- reg -->
                                     <div class="form-floating mb-3">
@@ -58,21 +62,14 @@
                                         	class="form-control" 
                                         	type="text" 
                                         	name="chefLieu" 
-                                        	th:field="*{chefLieu}" 
+                                        	th:field="*{chefLieu.codeInsee}" 
                                         	placeholder="Entrez le chef-Lieu"/>
                                         <label for="chefLieu">Chef-lieu</label>
                                     </div>
                                     
-                                    <!-- Submit success message-->
-                                    <div class="d-none" id="submitSuccessMessage">
-                                        <div class="text-center mb-3">
-                                            <div class="fw-bolder">Département crée avec succès!</div>
-                                        </div>
-                                    </div>
-                                    <!-- Submit error message-->
-                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Erreur rencontrée lors de l'enrégistrement des informations!</div></div>
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Suivant</button></div>
+                                    
                                 </form>
                             </div>
                         </div>

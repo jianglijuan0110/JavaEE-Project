@@ -16,6 +16,11 @@
 
                         <!-- Section Monument -->
                         <section>
+                        	<div class="d-flex align-items-center justify-content-between mb-4">
+                                <a class="btn btn-primary px-4 py-3" href="#!" style="float: right;">
+                                    Ajouter un monument
+                                </a>
+                            </div>
                             <div th:each="monument : ${monuments}" class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-5">
                                     <div class="row align-items-center gx-5">
@@ -35,7 +40,10 @@
                                                     <li th:text="${monument.latitude}">Latitude</li>
                                                 </ul>
                                             </div>
-                                            <div style="float: right;" ><button class="btn btn-primary">Supprimer</button></div>
+                                            <div style="float: right; display: flex; gap: 30px;" >
+                                            	<button class="btn btn-primary">Modifier</button>
+                                            	<button class="btn btn-primary">Supprimer</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

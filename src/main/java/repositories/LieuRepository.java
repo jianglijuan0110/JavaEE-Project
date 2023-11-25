@@ -7,5 +7,5 @@ import models.Lieu;
 
 @Repository
 public interface LieuRepository extends JpaRepository<Lieu, String> {
-
+	
 }

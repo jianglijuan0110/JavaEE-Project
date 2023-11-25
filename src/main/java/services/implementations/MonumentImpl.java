@@ -32,7 +32,7 @@ public class MonumentImpl implements MonumentService {
 
 	@Override
 	public Monument getMonumentById(String id) {
-		return monumentRepository.findById(id).get();
+		return monumentRepository.findById(id).orElse(null);
 	}
 
 	@Override

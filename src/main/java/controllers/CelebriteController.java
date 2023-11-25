@@ -41,7 +41,7 @@ public class CelebriteController {
 	@PostMapping("/celebrite/save")
 	public String saveCelebrite(@ModelAttribute("celebrite") Celebrite celebrite) {
 		celebriteService.saveCelebrite(celebrite);
-		return "redirect:/celebrites";
+		return "redirect:/monuments";
 	}
 	//---------
 
