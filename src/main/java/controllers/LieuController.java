@@ -18,13 +18,13 @@ import services.MonumentService;
 
 @Controller
 public class LieuController {
-	
+
 	@Autowired
 	private LieuService lieuService;
-	
+
 	@Autowired
 	private DepartementService departementService;
-	
+
 	@Autowired
 	private MonumentService monumentService;
 
@@ -34,7 +34,7 @@ public class LieuController {
 		this.monumentService = monumentService;
 	}
 	//---------
-	
+
 	@GetMapping("/lieux")
 	public String listLieux(Model model) {
 		List<Lieu> lieux = lieuService.getLieux();
@@ -42,17 +42,17 @@ public class LieuController {
 		return "List_Lieux";
 	}
 	//---------
-	
+
 	@GetMapping("/lieu/new")
 	public String createLieu(Model model) {
-		
+
 		Lieu lieu = new Lieu();
 		model.addAttribute("lieu", lieu);
-		
+
 		model.addAttribute("departements", departementService.getDepartements());
-		
+
 		model.addAttribute("monuments", monumentService.getMonuments());
-		
+
 		return "Create_Lieu";
 	}
 
@@ -62,7 +62,7 @@ public class LieuController {
 						   @RequestParam String nomCom,
 						   @RequestParam double longitude,
 						   @RequestParam double latitude,
-						   @RequestParam String dep, Model model) {
+						   @RequestParam String depId, Model model) {
 
 		// Set the values in the Lieu object
 		lieu.setCodeInsee(codeInsee);
@@ -70,21 +70,17 @@ public class LieuController {
 		lieu.setLongitude(longitude);
 		lieu.setLatitude(latitude);
 
-		// Now, you can set the Departement for the Lieu object
-		Departement departement = new Departement();
-		departement.setDep(dep);
+		Departement departement = departementService.getDepartementById(depId);
+
+		// Set the Departement for the Lieu object
 		lieu.setDepartement(departement);
 
 		// Save the Lieu using the service
 		lieuService.saveLieu(lieu);
 
-		// Add the inserted Departement to the model for the departementForm
-		model.addAttribute("insertedDep", departement);
-
 		// Redirect to the form for departement with the chosen department number
 		return "redirect:/departement/new/";
 	}
 
-	//---------
 
 }

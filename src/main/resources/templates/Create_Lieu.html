@@ -76,19 +76,19 @@
                                     </div>
                                     
                                     <!-- dep (departement associé à ce lieu) -->
-								    <div class="form-floating mb-3">
-                                        <input 
-                                        	class="form-control" 
-                                        	type="text" 
-                                        	name="dep" 
-                                        	th:field="*{departement.dep}" 
+								  <!--  <div class="form-floating mb-3">
+                                        <input
+                                        	class="form-control"
+                                        	type="text"
+                                        	name="dep"
+                                        	th:field="*{departement.dep}"
                                         	placeholder="Entrez le numéro de département"/>
                                         <label for="dep">Numéro de département</label>
                                     </div>
-								    
+								    -->
 								    <!-- Champ caché pour stocker le numéro de département -->
-    								<input type="hidden" name="insertedDep" th:value="${lieu.departement?.dep}" />
-                                    
+    								<!--<input type="hidden" name="insertedDep" th:value="${lieu.departement?.dep}" />
+                                    -->
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Suivant</button></div>
                                     

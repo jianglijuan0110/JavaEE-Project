@@ -42,7 +42,10 @@ public class DepartementImpl implements DepartementService {
 		return departementRepository.findById(id).orElse(null);
 		//codeInsee, "Can't find entered Lieu with Code Insee: "
 	}
-
+	@Autowired
+	public void setLieuService(LieuService lieuService) {
+		this.lieuService = lieuService;
+	}
 	@Override
 	public Departement saveDepartement(Departement departement) {
 		Departement savedDept = departementRepository.save(departement);

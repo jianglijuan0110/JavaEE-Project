@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,28 +40,27 @@ public class DepartementController {
 		return "List_Departements";
 	}
 	//---------
-	
-	@GetMapping("/departement/new/{insertedDep}")
-	public String createDepartement(@PathVariable("insertedDep") String insertedDep, Model model) {
-		
-		// On ajoute la valeur du département au modèle pour le formulaire departementForm
-	    model.addAttribute("insertedDep", insertedDep);
-		
-        /*Departement departement = new Departement();
-	    departement.setDep(insertedDep); // Préremplir le champ dep avec la valeur insertedDep
-		model.addAttribute("departement", departement);*/
-		
-		//model.addAttribute("lieux", lieuService.getLieux());
-		
+
+	@GetMapping("/departement/new")
+	public String createDepartement(Model model) {
+		// Create a new Departement instance
+		Departement departement = new Departement();
+		// Pre-fill the "dep" field with the value of "insertedDep"
+		departement.setDep(insertedDep); // You should define "insertedDep" somewhere
+		// Add the departement object to the model
+		model.addAttribute("departement", departement);
 		return "Create_Departement";
 	}
 
 	@PostMapping("/departement/save")
 	public String saveDepartement(@ModelAttribute("departement") Departement departement,
-								  @RequestParam String chefLieu,
+								  @RequestParam String chefLieuId,
 								  @RequestParam String nomDep,
 								  @RequestParam String reg,
 								  @RequestParam String dep, Model model) {
+
+		// Retrieve the Lieu object by its ID
+		Lieu chefLieu = lieuService.getLieuById(chefLieuId);
 
 		// Set the values for the Departement
 		departement.setChefLieu(chefLieu);
@@ -68,18 +68,35 @@ public class DepartementController {
 		departement.setReg(reg);
 		departement.setDep(dep);
 
-		// Create a new Lieu and set its values
-		Lieu lieu = new Lieu();
-		lieu.setCodeInsee(chefLieu);
-		lieu.setNomCom("Set the name as needed");  // Set the name as needed
-		lieu.setLongitude(0.0);  // Set the longitude as needed
-		lieu.setLatitude(0.0);   // Set the latitude as needed
+		// Check if chefLieu is null
+		if (chefLieu == null) {
+			// If the chefLieu doesn't exist, create a new one and set its values
+			chefLieu = new Lieu();
+			chefLieu.setNomCom("Set the name as needed");
+			chefLieu.setLongitude(0.0);  // Set the longitude as needed
+			chefLieu.setLatitude(0.0);   // Set the latitude as needed
 
-		// Set the Departement for the Lieu
-		lieu.setDepartement(departement);
+			// Set the Departement for the chefLieu
+			chefLieu.setDepartement(departement);
 
-		// Set the Lieu for the Departement
-		departement.setLieu(lieu);
+			// Add the chefLieu to the Departement's list of Lieux
+			List<Lieu> lieux = new ArrayList<>();
+			lieux.add(chefLieu);
+			departement.setLieux(lieux);
+		} else {
+			// If chefLieu exists, just set the Departement for the existing chefLieu
+			chefLieu.setDepartement(departement);
+
+			// Check if the Departement's list of Lieux is null
+			if (departement.getLieux() == null) {
+				List<Lieu> lieux = new ArrayList<>();
+				lieux.add(chefLieu);
+				departement.setLieux(lieux);
+			} else {
+				// If the list is not null, add the chefLieu to the existing list
+				departement.getLieux().add(chefLieu);
+			}
+		}
 
 		// Save the Departement using the service
 		departementService.saveDepartement(departement);
@@ -87,8 +104,6 @@ public class DepartementController {
 		// Redirect to the form for Lieu with the chosen codeInsee
 		return "redirect:/lieu/new/";
 	}
-
-
 
 
 }
