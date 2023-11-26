@@ -39,8 +39,7 @@ public class DepartementController {
 		model.addAttribute("departements", departements);
 		return "List_Departements";
 	}
-	//---------
-<<<<<<< HEAD
+
 	
 	@GetMapping("/departement/new")
 	public String createDepartement(Model model) {
