@@ -117,7 +117,7 @@ public class DepartementController {
 		departementService.saveDepartement(departement);
 
 		// Redirect to the form for Lieu with the chosen codeInsee
-		return "redirect:/lieu/new/";
+		return "redirect:/monument/new/";
 	}
 
 
