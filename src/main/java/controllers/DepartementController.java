@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import models.Departement;
 import models.Lieu;
 import services.DepartementService;
@@ -41,7 +42,10 @@ public class DepartementController {
 	//---------
 	
 	@GetMapping("/departement/new")
-	public String createDepartement(Model model) {
+	public String createDepartement(Model model, HttpSession session) {
+		
+		// Récupérer le codeInsee du lieu à partir de la session
+	    String codeInsee = (String) session.getAttribute("codeInsee");
 		
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
@@ -54,13 +58,19 @@ public class DepartementController {
 	}
 
 	@PostMapping("/departement/save")
-	public String saveDepartement(@ModelAttribute("departement") Departement departement, Model model) {
+	public String saveDepartement(@ModelAttribute("departement") Departement departement, HttpSession session, Model model) {
+		
+		// Récupérer le codeInsee du lieu à partir de la session
+	    String codeInsee = (String) session.getAttribute("codeInsee");
 
 		// Save the Departement using the service
 		departementService.saveDepartement(departement);
+		
+		// Supprimer le codeInsee du lieu de la session une fois utilisé
+	    session.removeAttribute("codeInsee");
 
 		// Redirect to the form for Lieu with the chosen codeInsee
-		return "redirect:/lieu/new/";
+		return "redirect:/lieux";
 	}
 
 

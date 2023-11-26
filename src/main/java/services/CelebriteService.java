@@ -13,5 +13,7 @@ public interface CelebriteService {
 	Celebrite getCelebriteById(Integer id);
 	
 	Celebrite saveCelebrite(Celebrite celebrite);
+	
+	void associateMonumentWithCelebrite(String monumentId, Integer celebriteId);
 
 }
