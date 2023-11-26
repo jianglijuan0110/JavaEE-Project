@@ -18,8 +18,8 @@ public class Departement {
 	 * "OneToOne" pour dire "un departement, un chef de lieu"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
-	@OneToOne
-	@JoinColumn(name="chefLieu")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "chefLieu")
 	private Lieu chefLieu;
 	
 	private String reg;

@@ -19,7 +19,9 @@ public class DepartementImpl implements DepartementService {
 
 	@Autowired
 	private DepartementRepository departementRepository;
-	
+	@Autowired
+	private LieuService lieuService;
+
 	public DepartementImpl(DepartementRepository departementRepository) {
 		this.departementRepository = departementRepository;
 	}
@@ -56,21 +58,6 @@ public class DepartementImpl implements DepartementService {
                 .map(Departement::getChefLieu)
                 .collect(Collectors.toList());
 	}
-	/*@Override
-	@Transactional
-	public Departement saveDepartementWithLieu(Departement departement, String lieuCodeInsee) {
-		try {
-			Lieu lieu = lieuService.getLieuById(lieuCodeInsee);
-			departement.getChefLieu().setDepartement(departement);
-			lieu.setDepartementCheflieu(departement);
 
-			// Save the Departement, cascading will take care of the Lieu
-			Departement savedDepartement = departementRepository.save(departement);
-
-			return savedDepartement;
-		} catch (Exception e) {
-			throw new RuntimeException("Error saving Departement with Lieu: " + e.getMessage(), e);
-		}
-	}*/
 	
 }
