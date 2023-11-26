@@ -41,16 +41,19 @@ public class DepartementController {
 	}
 	//---------
 
+
 	@GetMapping("/departement/new")
 	public String createDepartement(Model model) {
 
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
+
 		return "Create_Departement";
 	}
 
 
 	@PostMapping("/departement/save")
+
 	public String saveDepartement(@ModelAttribute("departement") Departement departement,
 								  @RequestParam String chefLieuId,
 								  @RequestParam String nomDep,
@@ -95,6 +98,8 @@ public class DepartementController {
 				departement.getLieux().add(chefLieu);
 			}
 		}
+
+	public String saveDepartement(@ModelAttribute("departement") Departement departement, Model model) {
 
 		// Save the Departement using the service
 		departementService.saveDepartement(departement);

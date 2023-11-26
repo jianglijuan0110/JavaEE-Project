@@ -3,6 +3,8 @@ package models;
 import jakarta.persistence.*;
 import java.util.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="monument")
 public class Monument {
@@ -10,6 +12,7 @@ public class Monument {
 	//ATTRIBUTS
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private String geohash;
 	
 	private String nom;
