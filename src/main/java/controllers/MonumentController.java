@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpSession;
 import models.Lieu;
 import models.Monument;
 import services.DepartementService;
@@ -55,7 +56,7 @@ public class MonumentController {
 	}
 	
 	@PostMapping("/monument/save")
-	public String saveMonument(@ModelAttribute("monument") Monument monument, Model model) {
+	public String saveMonument(@ModelAttribute("monument") Monument monument,  HttpSession session) {
 		
 		// cle etrangere codeInsee
 		//Lieu lieu = lieuService.getLieuById(monument.getCodeLieu().getCodeInsee());
@@ -63,6 +64,10 @@ public class MonumentController {
 		//monument.setCodeLieu(lieu);
 		
 		monumentService.saveMonument(monument);
+		
+		// Stocker le monument dans la session
+	    session.setAttribute("currentMonument", monument);
+	    
 		return "redirect:/celebrite/new";
 	}
 	//---------
