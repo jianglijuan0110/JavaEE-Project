@@ -50,20 +50,18 @@ public class LieuController {
 		model.addAttribute("lieu", lieu);
 
 
+
 		model.addAttribute("departements", departementService.getDepartements());
 
 		model.addAttribute("monuments", monumentService.getMonuments());
 
 
-		/*model.addAttribute("departements", departementService.getDepartements());
-		
-		model.addAttribute("monuments", monumentService.getMonuments());*/
-		
 
 		return "Create_Lieu";
 	}
 
 	@PostMapping("/lieu/save")
+
 
 	public String saveLieu(@ModelAttribute("lieu") Lieu lieu,
 						   @RequestParam String codeInsee,
@@ -87,11 +85,7 @@ public class LieuController {
 		lieuService.saveLieu(lieu);
 
 
-	public String saveLieu(@ModelAttribute("lieu") Lieu lieu, Model model) {
-		
-		// Save the Lieu using the service
-		lieuService.saveLieu(lieu);
-		
+
 
 		// Redirect to the form for departement with the chosen department number
 		return "redirect:/lieux";

@@ -39,8 +39,8 @@ public class DepartementController {
 		model.addAttribute("departements", departements);
 		return "List_Departements";
 	}
-	//---------
 
+	
 
 	@GetMapping("/departement/new")
 	public String createDepartement(Model model) {
@@ -48,11 +48,17 @@ public class DepartementController {
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
 
+		model.addAttribute("departements", departementService.getDepartements());
+		
+		//model.addAttribute("lieux", lieuService.getLieux());
+		
+
 		return "Create_Departement";
 	}
 
 
 	@PostMapping("/departement/save")
+
 
 	public String saveDepartement(@ModelAttribute("departement") Departement departement,
 								  @RequestParam String chefLieuId,
@@ -99,13 +105,14 @@ public class DepartementController {
 			}
 		}
 
-	public String saveDepartement(@ModelAttribute("departement") Departement departement, Model model) {
+
+
 
 		// Save the Departement using the service
 		departementService.saveDepartement(departement);
 
 		// Redirect to the form for Lieu with the chosen codeInsee
-		return "redirect:/lieu/new/";
+		return "redirect:/monument/new/";
 	}
 
 
