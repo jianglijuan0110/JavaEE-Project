@@ -63,7 +63,7 @@ public class LieuController {
 		lieuService.saveLieu(lieu);
 		
 		// Redirect to the form for departement with the chosen department number
-		return "redirect:/departement/new/";
+		return "redirect:/lieux";
 	}
 
 	//---------
