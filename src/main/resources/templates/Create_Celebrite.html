@@ -62,14 +62,9 @@
                                         <label for="epoque">Epoque</label>
                                     </div>
                                     
-                                    <!-- Submit success message-->
-                                    <div class="d-none" id="submitSuccessMessage">
-                                        <div class="text-center mb-3">
-                                            <div class="fw-bolder">Célébrité créée avec succès!</div>
-                                        </div>
-                                    </div>
-                                    <!-- Submit error message-->
-                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Erreur rencontrée lors de l'enrégistrement des informations!</div></div>
+                                    <!-- Champ caché pour les informations du monument -->
+    								<input type="text" name="geohash" th:value="${monument.geohash}" />
+                                    
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enrégistrer les informations</button></div>
                                     
