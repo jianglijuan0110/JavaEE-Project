@@ -15,8 +15,7 @@ import repositories.LieuRepository;
 import services.LieuService;
 import services.DepartementService;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+
 @Service
 public class LieuImpl implements LieuService {
 	
@@ -44,9 +43,8 @@ public class LieuImpl implements LieuService {
 	public Lieu getLieuById(String id) {
 		return lieuRepository.findById(id).get();
 	}
-
+	
 	@Override
-	@Transactional
 	public Lieu saveLieu(Lieu lieu) {
 		
 		//Departement departement = new Departement();

@@ -20,13 +20,13 @@ import services.MonumentService;
 
 @Controller
 public class LieuController {
-	
+
 	@Autowired
 	private LieuService lieuService;
-	
+
 	@Autowired
 	private DepartementService departementService;
-	
+
 	@Autowired
 	private MonumentService monumentService;
 
@@ -36,7 +36,7 @@ public class LieuController {
 		this.monumentService = monumentService;
 	}
 	//---------
-	
+
 	@GetMapping("/lieux")
 	public String listLieux(Model model) {
 		List<Lieu> lieux = lieuService.getLieux();
@@ -44,10 +44,10 @@ public class LieuController {
 		return "List_Lieux";
 	}
 	//---------
-	
+
 	@GetMapping("/lieu/new")
 	public String createLieu(Model model) {
-		
+
 		Lieu lieu = new Lieu();
 		model.addAttribute("lieu", lieu);
 		
@@ -71,6 +71,5 @@ public class LieuController {
 		return "redirect:/departement/save";
 	}
 
-	//---------
 
 }
