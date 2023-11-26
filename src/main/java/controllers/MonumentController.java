@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import models.Lieu;
 import models.Monument;
+import services.DepartementService;
 import services.LieuService;
 import services.MonumentService;
 
@@ -19,6 +20,9 @@ public class MonumentController {
 	
 	@Autowired
 	private MonumentService monumentService;
+	
+	@Autowired
+	private DepartementService departementService;
 	
 	@Autowired
 	private LieuService lieuService;
@@ -45,6 +49,8 @@ public class MonumentController {
 		
 		model.addAttribute("lieux", lieuService.getLieux());
 		
+		model.addAttribute("departements", departementService.getDepartements());
+		
 		return "Create_Monument";
 	}
 	
@@ -52,9 +58,9 @@ public class MonumentController {
 	public String saveMonument(@ModelAttribute("monument") Monument monument, Model model) {
 		
 		// cle etrangere codeInsee
-		Lieu lieu = lieuService.getLieuById(monument.getCodeLieu().getCodeInsee());
+		//Lieu lieu = lieuService.getLieuById(monument.getCodeLieu().getCodeInsee());
 		
-		monument.setCodeLieu(lieu);
+		//monument.setCodeLieu(lieu);
 		
 		monumentService.saveMonument(monument);
 		return "redirect:/celebrite/new";
