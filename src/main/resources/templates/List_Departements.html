@@ -28,7 +28,7 @@
                                             <div>
                                                 <ul>
                                                     <li th:text="${departement.reg}">Région</li>
-                                                    <li th:text="${departement.chefLieu.nomCom}">Chef-lieu</li>
+                                                    <li th:text="${departement.chefLieu != null ? departement.chefLieu.nomCom : ''}">Chef-lieu</li>
                                                     <li th:text="${departement.dep}">Département</li>
                                                 </ul>
                                             </div>

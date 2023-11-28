@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpSession;
 import models.Departement;
 import models.Lieu;
 import services.DepartementService;
@@ -40,42 +36,35 @@ public class DepartementController {
 		model.addAttribute("departements", departements);
 		return "List_Departements";
 	}
-
+	//---------
 	
-
 	@GetMapping("/departement/new")
-	public String createDepartement(Model model, HttpSession session) {
-		
-		// Récupérer le codeInsee du lieu à partir de la session
-	    String codeInsee = (String) session.getAttribute("codeInsee");
+	public String createDepartement(Model model) {
 		
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
-
-		model.addAttribute("departements", departementService.getDepartements());
 		
-		//model.addAttribute("lieux", lieuService.getLieux());
+		Lieu chefLieu = new Lieu();
+		model.addAttribute("chefLieu", chefLieu);
 		
-
 		return "Create_Departement";
 	}
 
 
 	@PostMapping("/departement/save")
-	public String saveDepartement(@ModelAttribute("departement") Departement departement, HttpSession session, Model model) {
+	public String saveDepartement(@ModelAttribute("departement") Departement departement, 
+			@ModelAttribute("chefLieu") Lieu chefLieu) {
 		
-		// Récupérer le codeInsee du lieu à partir de la session
-	    String codeInsee = (String) session.getAttribute("codeInsee");
-
-		// Save the Departement using the service
-		departementService.saveDepartement(departement);
+		departementService.saveDepartement(
+                departement,
+                chefLieu.getCodeInsee(),
+                chefLieu.getNomCom(),
+                chefLieu.getLongitude(),
+                chefLieu.getLatitude()
+        );
 		
-		// Supprimer le codeInsee du lieu de la session une fois utilisé
-	    session.removeAttribute("codeInsee");
-
-		// Redirect to the form for Lieu with the chosen codeInsee
-		return "redirect:/lieux";
+		// Redirection
+		return "redirect:/departements";
 	}
-
-
+	
 }
