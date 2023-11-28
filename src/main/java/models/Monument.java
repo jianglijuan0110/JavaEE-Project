@@ -11,8 +11,7 @@ public class Monument {
 	
 	//ATTRIBUTS
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+	@Id //@GeneratedValue(strategy = GenerationType.UUID)
 	private String geohash;
 	
 	private String nom;
@@ -44,7 +43,9 @@ public class Monument {
 	
 	//CONSTRUCTEURS
 	
-	public Monument(){}
+	public Monument(){
+		this.celebrites = new ArrayList<>();
+	}
 	
 	public Monument(String geohash, String nom, String proprietaire, String typeM, double longitude, double latitude,
 			Lieu codeLieu) {
@@ -56,6 +57,7 @@ public class Monument {
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.codeLieu = codeLieu;
+		this.celebrites = new ArrayList<>();
 	}
 
 

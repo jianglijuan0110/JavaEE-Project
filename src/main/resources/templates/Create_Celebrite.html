@@ -51,6 +51,7 @@
                                         	placeholder="Entrez la nationnalité"/>
                                         <label for="nationalite">Nationnalité</label>
                                     </div>
+                                    
                                     <!-- epoque -->
                                     <div class="form-floating mb-3">
                                         <input 
@@ -62,9 +63,12 @@
                                         <label for="epoque">Epoque</label>
                                     </div>
                                     
-                                    <!-- Champ caché pour les informations du monument -->
-    								<input type="text" name="geohash" th:value="${monument.geohash}" />
-                                    
+                                    <!-- Affichage des informations du monument -->
+									<div>
+									    <label>Nom du Monument: </label>
+									    <span th:text="${monument.nom}"></span>
+									</div>
+									
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enrégistrer les informations</button></div>
                                     

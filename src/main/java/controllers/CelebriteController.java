@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import models.Celebrite;
@@ -25,9 +24,10 @@ public class CelebriteController {
 	@Autowired
 	private MonumentService monumentService;
 
-	public CelebriteController(CelebriteService celebriteService) {
-		this.celebriteService = celebriteService;
-	}
+	public CelebriteController(CelebriteService celebriteService, MonumentService monumentService) {
+        this.celebriteService = celebriteService;
+        this.monumentService = monumentService;
+    }
 	//---------
 	
 	@GetMapping("/celebrites")
@@ -40,32 +40,33 @@ public class CelebriteController {
 	
 	@GetMapping("/celebrite/new")
 	public String createCelebrite(Model model, HttpSession session) {
-		Celebrite celebrite = new Celebrite();
+		
+		// Récupérer l'ID du monument à partir de la session
+	    String id = (String) session.getAttribute("monumentId");
+	    
+	    Monument monument = monumentService.getMonumentById(id);
+	    model.addAttribute("monument", monument);
+	    
+		Celebrite celebrite = new Celebrite();    
 	    model.addAttribute("celebrite", celebrite);
-
-	    // Récupérer le monument depuis la session
-	    Monument currentMonument = (Monument) session.getAttribute("currentMonument");
-	    model.addAttribute("currentMonument", currentMonument);
 	    
 		return "Create_Celebrite";
 	}
 	
 	@PostMapping("/celebrite/save")
-	public String saveCelebrite(@ModelAttribute("celebrite") Celebrite celebrite, @RequestParam("geohash") String geohash, HttpSession session) {
+	public String saveCelebrite(@ModelAttribute("celebrite") Celebrite celebrite, HttpSession session, Model model) {
 		
-		// Récupérer le monument complet depuis la base de données
-	    Monument monument = monumentService.getMonumentById(geohash);
-
-	    // Associer la célébrité au monument
-	    celebrite.getMonuments().add(monument);
-	    monument.getCelebrites().add(celebrite);
+		// Récupérer l'ID du monument à partir de la session
+	    String id = (String) session.getAttribute("monumentId");
 	    
 		celebriteService.saveCelebrite(celebrite);
 		
-		// Effacer le monument de la session après utilisation
-	    session.removeAttribute("currentMonument");
+		celebriteService.associateMonumentWithCelebrite(id, celebrite.getNumCelebrite());
 		
-		return "redirect:/monuments";
+		// Supprimer l'ID du monument de la session une fois utilisé
+	    session.removeAttribute("monumentId");
+	    
+		return "redirect:/celebrites";
 	}
 	//---------
 

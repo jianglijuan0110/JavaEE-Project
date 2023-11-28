@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import models.Departement;
 import models.Lieu;
-import org.springframework.transaction.annotation.Transactional;
 import repositories.DepartementRepository;
 import services.DepartementService;
 import services.LieuService;
@@ -41,10 +40,7 @@ public class DepartementImpl implements DepartementService {
 		return departementRepository.findById(id).orElse(null);
 		//codeInsee, "Can't find entered Lieu with Code Insee: "
 	}
-	@Autowired
-	public void setLieuService(LieuService lieuService) {
-		this.lieuService = lieuService;
-	}
+	
 	@Override
 	public Departement saveDepartement(Departement departement) {
         return departementRepository.save(departement);
@@ -59,5 +55,4 @@ public class DepartementImpl implements DepartementService {
                 .collect(Collectors.toList());
 	}
 
-	
 }

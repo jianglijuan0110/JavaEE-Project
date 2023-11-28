@@ -37,7 +37,9 @@ public class Celebrite {
 	
 	//CONSTRUCTEURS
 	
-	public Celebrite() {}
+	public Celebrite() {
+		this.monuments = new ArrayList<>();
+	}
 
 	public Celebrite(Integer numCelebrite, String nom, String prenom, String nationalite, String epoque) {
 		super();
@@ -46,6 +48,7 @@ public class Celebrite {
 		this.prenom = prenom;
 		this.nationalite = nationalite;
 		this.epoque = epoque;
+		this.monuments = new ArrayList<>();
 	}
 	
 	
