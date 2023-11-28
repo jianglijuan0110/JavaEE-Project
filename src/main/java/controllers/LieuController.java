@@ -61,18 +61,19 @@ public class LieuController {
 		return "Create_Lieu";
 	}
 	@PostMapping("/lieu/save")
+	public String saveLieu(@ModelAttribute("lieu") Lieu lieu,
+						   @RequestParam("codeInsee") String codeInsee,
+						   @RequestParam("dep") String dep
+						  ) {
 
-	public String saveLieu(@ModelAttribute("lieu") Lieu lieu, HttpSession session) {
-		
 		// Save the Lieu using the service
-		lieuService.saveLieu(lieu);
-		
-	    // Ajouter le codeInsee du lieu à la session
-	    session.setAttribute("codeInsee", lieu.getCodeInsee());
-		
+		Lieu savedLieu = lieuService.saveLieu(lieu, codeInsee, dep);
+
+
 
 		// Redirect to the form for departement with the chosen department number
 		return "redirect:/departement/save";
 	}
+
 
 }

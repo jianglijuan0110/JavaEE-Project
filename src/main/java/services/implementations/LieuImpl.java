@@ -21,7 +21,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 @Service
 @Transactional
 public class LieuImpl implements LieuService {
-	
+
+
 	@Autowired
 	private LieuRepository lieuRepository;
 
@@ -57,16 +58,16 @@ public class LieuImpl implements LieuService {
 		try {
 			// Disable foreign key checks for Lieu
 			disableForeignKeyChecks();
-
+			lieu.setCodeInsee(codeInsee);
 			// Ensure that the associated Departement is either in the database or gets saved
 			Departement departement = lieu.getDepartement();
 
 			if (departement != null) {
 				if (departement.getDep() == null) {
 					// If Departement is new (not in the database), save it first
-					if (departement.getCodeInsee() == null) {
+					if (departement.getChefLieu() == null) {
 						// If CodeInsee is missing in the provided Departement, use the one from the parameter
-						departement.setCodeInsee(codeInsee);
+						departement.setChefLieu(lieu);
 					}
 
 					if (departement.getDep() == null) {
@@ -81,7 +82,7 @@ public class LieuImpl implements LieuService {
 			} else {
 				// Both CodeInsee and Departement are missing, create new instances
 				departement = new Departement();
-				departement.setChefLieu(codeInsee);
+				departement.setChefLieu(lieu);
 				departement.setDep(dep);
 				departement = departementRepository.save(departement);
 				lieu.setDepartement(departement);
@@ -94,10 +95,15 @@ public class LieuImpl implements LieuService {
 			return savedLieu;
 
 		} catch (DataIntegrityViolationException e) {
-			// Catch a more specific exception for data integrity violations
+			// Handle specific data integrity violation
+			throw new DataIntegrityViolationException("Error saving Lieu: " + e.getMessage(), e);
+		} catch (Exception e) {
+			// Handle other exceptions
 			throw new RuntimeException("Error saving Lieu: " + e.getMessage(), e);
+		}
 
-		} finally {
+
+		finally {
 			// Enable foreign key checks for Lieu
 			enableForeignKeyChecks();
 		}
@@ -115,6 +121,7 @@ public class LieuImpl implements LieuService {
 		String query = "SET foreign_key_checks = 1";
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
+
 
 
 }

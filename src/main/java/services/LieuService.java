@@ -12,7 +12,7 @@ public interface LieuService {
 	
 	Lieu getLieuById(String id);
 	
-	Lieu saveLieu(Lieu lieu);
+	Lieu saveLieu(Lieu lieu, String codeInsee, String dep);
 
 	//Lieu saveLieuWithDepartement(Lieu lieu, String depId);
 }
