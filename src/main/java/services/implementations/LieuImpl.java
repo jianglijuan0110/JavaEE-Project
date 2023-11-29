@@ -5,25 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import models.Lieu;
-import models.Departement;
-import repositories.DepartementRepository;
+
 import repositories.LieuRepository;
 import services.LieuService;
-import services.DepartementService;
 
 
 @Service
 public class LieuImpl implements LieuService {
-	
+
+
 	@Autowired
 	private LieuRepository lieuRepository;
-	
-	@Autowired
-	private DepartementRepository departementRepository;
 
 	public LieuImpl(LieuRepository lieuRepository) {
 		this.lieuRepository = lieuRepository;
@@ -46,12 +39,6 @@ public class LieuImpl implements LieuService {
 	
 	@Override
 	public Lieu saveLieu(Lieu lieu) {
-		
-		//Departement departement = new Departement();
-		
-		//lieu.setDepartement(departement);
-		
-		// Save the Lieu using the repository
 		return lieuRepository.save(lieu);
 	}
 

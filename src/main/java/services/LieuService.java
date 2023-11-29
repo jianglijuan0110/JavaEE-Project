@@ -14,5 +14,4 @@ public interface LieuService {
 	
 	Lieu saveLieu(Lieu lieu);
 
-	//Lieu saveLieuWithDepartement(Lieu lieu, String depId);
 }

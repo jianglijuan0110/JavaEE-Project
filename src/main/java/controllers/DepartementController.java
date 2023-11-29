@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import models.Lieu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,22 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import models.Departement;
-import models.Lieu;
 import services.DepartementService;
-import services.LieuService;
-
 @Controller
 public class DepartementController {
 	
 	@Autowired
 	private DepartementService departementService;
-	
-	@Autowired
-	private LieuService lieuService;
 
-	public DepartementController(DepartementService departementService, LieuService lieuService) {
+	public DepartementController(DepartementService departementService) {
 		this.departementService = departementService;
-		this.lieuService = lieuService;
 	}
 	//---------
 	
@@ -37,13 +31,13 @@ public class DepartementController {
 		return "List_Departements";
 	}
 	//---------
-	
+
 	@GetMapping("/departement/new")
 	public String createDepartement(Model model) {
 		
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
-		
+	
 		Lieu chefLieu = new Lieu();
 		model.addAttribute("chefLieu", chefLieu);
 		

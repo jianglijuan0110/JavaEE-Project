@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.servlet.http.HttpSession;
 import models.Lieu;
 import services.DepartementService;
 import services.LieuService;
@@ -47,17 +46,14 @@ public class LieuController {
 		
 		return "Create_Lieu";
 	}
-
+	
 	@PostMapping("/lieu/save")
-	public String saveLieu(@ModelAttribute("lieu") Lieu lieu, HttpSession session) {
-		
+	public String registerLieu(@ModelAttribute("lieu") Lieu lieu) {
+
 		// Save the Lieu using the service
 		lieuService.saveLieu(lieu);
-		
-	    // Ajouter le codeInsee du lieu à la session
-	    //session.setAttribute("codeInsee", lieu.getCodeInsee());
-		
-		// Redirection
+
+		// Redirect to the form
 		return "redirect:/lieux";
 	}
 
