@@ -37,11 +37,10 @@ public class Departement {
 	
 	public Departement() {}
 
-	public Departement(String dep, String nomDep, Lieu chefLieu, String reg) {
+	public Departement(String dep, String nomDep, String reg) {
 		super();
 		this.dep = dep;
 		this.nomDep = nomDep;
-		this.chefLieu = chefLieu;
 		this.reg = reg;
 	}
 	

@@ -16,6 +16,12 @@
 
                         <!-- Section Departement -->
                         <section>
+                        	<div class="d-flex align-items-center justify-content-between mb-4">
+                        		<h2></h2>
+                                <a class="btn btn-primary px-4 py-3" th:href="@{/departement/new}">
+                                    Ajouter un département
+                                </a>
+                            </div>
                             <div th:each="departement : ${departements}" class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-5">
                                     <div class="row align-items-center gx-5">
@@ -28,13 +34,13 @@
                                             <div>
                                                 <ul>
                                                     <li th:text="${departement.reg}">Région</li>
-                                                    <li th:text="${departement.chefLieu.nomCom}">Chef-lieu</li>
+                                                    <li th:text="${departement.chefLieu != null ? departement.chefLieu.nomCom : ''}">Chef-lieu</li>
                                                     <li th:text="${departement.dep}">Département</li>
                                                 </ul>
                                             </div>
                                             <div style="float: right; display: flex; gap: 30px;" >
-                                            	<button class="btn btn-primary">Modifier</button>
-                                            	<button class="btn btn-primary">Supprimer</button>
+                                            	<a class="btn btn-primary px-4">Modifier</a>
+                                            	<a class="btn btn-primary px-4">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>

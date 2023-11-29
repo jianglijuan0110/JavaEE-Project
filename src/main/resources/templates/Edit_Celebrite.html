@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{Layout}">
+    
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+
+            <!-- Page Content-->
+            <section layout:fragment="body" class="py-5">
+                <div class="container px-5">
+                    <!-- Celebrite form-->
+                    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder">Rensegner les champs suivants pour mettre à jour la célébritée</h1>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                                
+                                <form role="form" method="post" th:action="@{/celebrite/{numC}/update(numC=${celebrite.numCelebrite})}" th:object="${celebrite}" id="celebriteForm">
+                                
+                                	<input type="hidden" th:field="*{numCelebrite}">
+                                	
+                                    <!-- nom -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="nom" 
+                                        	th:field="*{nom}" 
+                                        	placeholder="Entrez le nom"/>
+                                        <label for="nom">Nom</label>
+                                    </div>
+                                    
+                                    <!-- prenom -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text"
+                                        	name="prenom" 
+                                        	th:field="*{prenom}" 
+                                        	placeholder="Entrez le prénom"/>
+                                        <label for="prenom">Prénom</label>
+                                    </div>
+                                    
+                                    <!-- nationnalite -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="nationalite" 
+                                        	th:field="*{nationalite}" 
+                                        	placeholder="Entrez la nationnalité"/>
+                                        <label for="nationalite">Nationnalité</label>
+                                    </div>
+                                    
+                                    <!-- epoque -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="epoque" 
+                                        	th:field="*{epoque}" 
+                                        	placeholder="Entrez l'époque"/>
+                                        <label for="epoque">Epoque</label>
+                                    </div>
+									
+                                    <!-- Submit Button-->
+                                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enrégistrer les informations</button></div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>   
+    </body>
+</html>
