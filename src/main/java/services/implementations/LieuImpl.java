@@ -2,6 +2,7 @@ package services.implementations;
 
 import java.util.List;
 
+import models.Departement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class LieuImpl implements LieuService {
 
 	@Autowired
 	private LieuRepository lieuRepository;
+
+	@Autowired
+	private LieuRepository departementRepository;
 
 	public LieuImpl(LieuRepository lieuRepository) {
 		this.lieuRepository = lieuRepository;
@@ -45,15 +49,22 @@ public class LieuImpl implements LieuService {
 		try {
 			// Disable foreign key checks for Lieu
 			disableForeignKeyChecks("lieu");
+
+			// Ensure that the associated Departement is either in the database or gets saved
+			Departement departement = lieu.getDepartement();
+			if (departement != null && departement.getDep() == null) {
+				// If Departement is new (not in the database), save it first
+				departement = departementRepository.save(departement);
+				lieu.setDepartement(departement);
+			}
+
 			// Save the Lieu using the repository
 			Lieu savedLieu = lieuRepository.save(lieu);
-
 
 			// Return the saved Lieu
 			return savedLieu;
 
 		} catch (Exception e) {
-
 			throw new RuntimeException("Error saving Lieu: " + e.getMessage(), e);
 		} finally {
 			// Enable foreign key checks for Lieu
@@ -61,13 +72,15 @@ public class LieuImpl implements LieuService {
 		}
 	}
 
+
+
 	private void disableForeignKeyChecks(String tableName) {
-		String query = String.format("SET foreign_key_checks = 0 FOR %s", tableName);
+		String query = String.format("SET foreign_key_checks = 0", tableName);
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
 
 	private void enableForeignKeyChecks(String tableName) {
-		String query = String.format("SET foreign_key_checks = 1 FOR %s", tableName);
+		String query = String.format("SET foreign_key_checks = 1", tableName);
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
 }

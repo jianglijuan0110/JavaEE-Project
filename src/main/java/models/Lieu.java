@@ -31,7 +31,7 @@ public class Lieu {
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
 	@ManyToOne
-	@JoinColumn(name="dep")
+	@JoinColumn(name = "dep", referencedColumnName = "dep")
 	private Departement departement;
 	
 	/*

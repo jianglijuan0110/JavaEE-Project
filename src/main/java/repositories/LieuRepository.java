@@ -10,11 +10,11 @@ import models.Lieu;
 @Repository
 public interface LieuRepository extends JpaRepository<Lieu, String> {
     @Modifying
-    @Query(value = "SET foreign_key_checks = 0 FOR lieu", nativeQuery = true)
+    @Query(value = "SET foreign_key_checks = 0", nativeQuery = true)
     void disableForeignKeyChecks();
 
     @Modifying
-    @Query(value = "SET foreign_key_checks = 1 FOR lieu", nativeQuery = true)
+    @Query(value = "SET foreign_key_checks = 1", nativeQuery = true)
     void enableForeignKeyChecks();
 }
 
