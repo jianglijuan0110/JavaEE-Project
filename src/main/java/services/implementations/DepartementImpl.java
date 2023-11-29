@@ -1,8 +1,6 @@
 package services.implementations;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import models.Lieu;
 import repositories.DepartementRepository;
 import repositories.LieuRepository;
 import services.DepartementService;
-import services.LieuService;
 
 
 @Service
@@ -91,7 +88,6 @@ public class DepartementImpl implements DepartementService {
 		String query = "SET foreign_key_checks = 1";
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
-
 
 
 

@@ -3,7 +3,7 @@ package services;
 import java.util.List;
 
 import models.Departement;
-import models.Lieu;
+
 
 public interface DepartementService {
 	
