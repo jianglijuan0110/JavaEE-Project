@@ -49,15 +49,12 @@ public class DepartementImpl implements DepartementService {
 		//codeInsee, "Can't find entered Lieu with Code Insee: "
 	}
 	
-	/*@Override
-	public Departement saveDepartement(Departement departement) {
-		return departementRepository.save(departement);
-	}*/
+	
 	@Override
 	@Transactional
 	public Departement saveDepartement(Departement departement, String codeInseeChefLieu, 
 			String nomCommChefLieu, double longitude, double latitude) {
-        // Obtenez la session Hibernate à partir de l'EntityManager
+        // Obtenir la session Hibernate à partir de l'EntityManager
         Session session = entityManager.unwrap(Session.class);
 
         // Désactivation temporaire des contraintes de clés étrangères

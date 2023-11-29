@@ -15,5 +15,9 @@ public interface CelebriteService {
 	Celebrite saveCelebrite(Celebrite celebrite);
 	
 	void associateMonumentWithCelebrite(String monumentId, Integer celebriteId);
+	
+	void updateCelebrite(Celebrite celebriteNew, Integer numCelebrite);
+	
+	void deleteCelebrite(Integer numCelebrite);
 
 }
