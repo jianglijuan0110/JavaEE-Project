@@ -19,7 +19,7 @@ public class Departement {
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
 	@OneToOne
-	@JoinColumn(name="chefLieu")
+	@JoinColumn(name = "chefLieu")
 	private Lieu chefLieu;
 	
 	private String reg;
