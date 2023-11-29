@@ -35,22 +35,35 @@ public class DepartementController {
 		model.addAttribute("departements", departements);
 		return "List_Departements";
 	}
+<<<<<<< HEAD
 
 
 
+=======
+	//---------
+	
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 	@GetMapping("/departement/new")
 	public String createDepartement(Model model) {
-
+		
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
+<<<<<<< HEAD
 		Lieu chefLieu = new Lieu();
 		model.addAttribute("chefLieu", chefLieu);
 
+=======
+		
+		Lieu chefLieu = new Lieu();
+		model.addAttribute("chefLieu", chefLieu);
+		
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 		return "Create_Departement";
 	}
 
 
 	@PostMapping("/departement/save")
+<<<<<<< HEAD
 
 	public String saveDepartement(@ModelAttribute("departement") Departement departement,
 								  @ModelAttribute("chefLieu") Lieu chefLieu) {
@@ -68,7 +81,21 @@ public class DepartementController {
 
 		return "redirect:/lieux";
 
+=======
+	public String saveDepartement(@ModelAttribute("departement") Departement departement, 
+			@ModelAttribute("chefLieu") Lieu chefLieu) {
+		
+		departementService.saveDepartement(
+                departement,
+                chefLieu.getCodeInsee(),
+                chefLieu.getNomCom(),
+                chefLieu.getLongitude(),
+                chefLieu.getLatitude()
+        );
+		
+		// Redirection
+		return "redirect:/departements";
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 	}
-
-
+	
 }

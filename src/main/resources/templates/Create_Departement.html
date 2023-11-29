@@ -18,10 +18,13 @@
                             <div class="col-lg-8 col-xl-6">
                                 
                                 <form role="form" method="post" th:action="@{/departement/save}" th:object="${departement}" id="departementForm">
+<<<<<<< HEAD
 
 
+=======
+                             
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
                                     <!-- nomDep -->
-
                                     <div class="form-floating mb-3">
                                         <input 
                                         	class="form-control" 
@@ -55,6 +58,7 @@
                                     </div>
                                     
                                     <!-- chefLieu -->
+<<<<<<< HEAD
 									<div th:object="${chefLieu}">
                                         <div class="form-floating mb-3">
                                             <input
@@ -93,11 +97,59 @@
                                             <label for="longitude">longitude</label>
                                         </div>
                                     </div>
+=======
+                                    <div class="text-center mb-5">
+			                            <h1 class="fw-bolder">Chef-lieu :</h1>
+			                        </div>
+									<div th:object="${chefLieu}">
+	                                    <!-- nomCom -->
+	                                    <div class="form-floating mb-3">
+	                                        <input 
+	                                        	class="form-control" 
+	                                        	type="text" 
+	                                        	name="nomCom" 
+	                                        	th:field="*{nomCom}" 
+	                                        	placeholder="Entrez le nom de la commune"/>
+	                                        <label for="nomCom">Nom de la commune</label>
+	                                    </div>
+	                                    <!-- codeInsee -->
+	                                    <div class="form-floating mb-3">
+	                                        <input 
+	                                        	class="form-control" 
+	                                        	type="text" 
+	                                        	name="codeInsee" 
+	                                        	th:field="*{codeInsee}" 
+	                                        	placeholder="Entrez le code Insee de la commune"/>
+	                                        <label for="codeInsee">Code INSEE de la commune</label>
+	                                    </div>
+	                                    <!-- longitude -->
+	                                    <div class="form-floating mb-3">
+	                                        <input 
+	                                        	class="form-control" 
+	                                        	type="text" 
+	                                        	name="longitude" 
+	                                        	th:field="*{longitude}" 
+	                                        	placeholder="Entrez la longitude"/>
+	                                        <label for="longitude">Longitude</label>
+	                                    </div>
+	                                    <!-- latitude -->
+	                                    <div class="form-floating mb-3">
+	                                        <input 
+	                                        	class="form-control" 
+	                                        	type="text" 
+	                                        	name="latitude" 
+	                                        	th:field="*{latitude}" 
+	                                        	placeholder="Entrez la latitude"/>
+	                                        <label for="latitude">Latitude</label>
+	                                    </div>
+									</div>
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
                                  
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Suivant</button></div>
                                     
                                 </form>
+                                
                             </div>
                         </div>
                     </div>

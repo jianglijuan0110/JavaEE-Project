@@ -8,10 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+<<<<<<< HEAD
+=======
+
+import jakarta.servlet.http.HttpSession;
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 import models.Lieu;
 import services.DepartementService;
 import services.LieuService;
-import services.MonumentService;
 
 @Controller
 public class LieuController {
@@ -22,13 +26,9 @@ public class LieuController {
 	@Autowired
 	private DepartementService departementService;
 
-	@Autowired
-	private MonumentService monumentService;
-
-	public LieuController(LieuService lieuService, DepartementService departementService, MonumentService monumentService) {
+	public LieuController(LieuService lieuService, DepartementService departementService) {
 		this.lieuService = lieuService;
 		this.departementService = departementService;
-		this.monumentService = monumentService;
 	}
 	//---------
 
@@ -45,23 +45,40 @@ public class LieuController {
 
 		Lieu lieu = new Lieu();
 		model.addAttribute("lieu", lieu);
+<<<<<<< HEAD
 
 		model.addAttribute("departements", departementService.getDepartements());
 		
 		//model.addAttribute("monuments", monumentService.getMonuments());
 		
 
+=======
+		
+		model.addAttribute("departements", departementService.getDepartements());
+		
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 		return "Create_Lieu";
 	}
 	@PostMapping("/lieu/save")
+<<<<<<< HEAD
 	public String enregistreLieu(@ModelAttribute("lieu") Lieu lieu) {
 
 		// Save the Lieu using the service
 		lieuService.saveLieu(lieu);
 
 		// Redirect to the form
+=======
+	public String saveLieu(@ModelAttribute("lieu") Lieu lieu, HttpSession session) {
+		
+		// Save the Lieu using the service
+		lieuService.saveLieu(lieu);
+		
+	    // Ajouter le codeInsee du lieu à la session
+	    //session.setAttribute("codeInsee", lieu.getCodeInsee());
+		
+		// Redirection
+>>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 		return "redirect:/lieux";
 	}
-
 
 }
