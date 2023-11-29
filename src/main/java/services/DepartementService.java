@@ -13,11 +13,7 @@ public interface DepartementService {
 	
 	Departement getDepartementById(String id);
 	
-	Departement saveDepartement(Departement departement);
-	
-	List<Lieu> getChefLieu();
-
-	//Departement saveDepartementWithLieu(Departement departement, String lieuCodeInsee);
+	Departement saveDepartement(Departement departement, String codeInseeChefLieu, String nomCom, double longitude, double latitude);
 
 
 }

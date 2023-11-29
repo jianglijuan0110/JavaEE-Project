@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
+import models.Lieu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,17 +42,12 @@ public class DepartementController {
 
 
 	@GetMapping("/departement/new")
-	public String createDepartement(Model model, HttpSession session) {
-		
-		// Récupérer le codeInsee du lieu à partir de la session
-	    String codeInsee = (String) session.getAttribute("codeInsee");
-		
+	public String createDepartement(Model model) {
+
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
-
-		//model.addAttribute("departements", departementService.getDepartements());
-
-		//model.addAttribute("lieux", lieuService.getLieux());
+		Lieu chefLieu = new Lieu();
+		model.addAttribute("chefLieu", chefLieu);
 
 		return "Create_Departement";
 	}
@@ -59,17 +55,17 @@ public class DepartementController {
 
 	@PostMapping("/departement/save")
 
-	public String saveDepartement(@ModelAttribute("departement") Departement departement, HttpSession session, Model model) {
-		
-		// Récupérer le codeInsee du lieu à partir de la session
-	    String codeInsee = (String) session.getAttribute("codeInsee");
+	public String saveDepartement(@ModelAttribute("departement") Departement departement,
+								  @ModelAttribute("chefLieu") Lieu chefLieu) {
 
+		String codeInseeChefLieu = chefLieu.getCodeInsee();
+		String nomCom = chefLieu.getNomCom();
+		double longitude = chefLieu.getLongitude();
+		double latitude = chefLieu.getLatitude();
 
 		// Save the Departement using the service
-		departementService.saveDepartement(departement);
-		
-		// Supprimer le codeInsee du lieu de la session une fois utilisé
-	    session.removeAttribute("codeInsee");
+		departementService.saveDepartement(departement,codeInseeChefLieu,nomCom,longitude,latitude);
+
 
 		// Redirect to the form for Lieu with the chosen codeInsee
 

@@ -12,7 +12,6 @@ public interface LieuService {
 	
 	Lieu getLieuById(String id);
 	
-	Lieu saveLieu(Lieu lieu, String codeInsee, String dep);
+	Lieu saveLieu(Lieu lieu);
 
-	//Lieu saveLieuWithDepartement(Lieu lieu, String depId);
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{Layout}">
@@ -55,15 +55,44 @@
                                     </div>
                                     
                                     <!-- chefLieu -->
-									<div class="form-floating mb-3">
-                                        <input 
-                                        	class="form-control" 
-                                        	type="text" 
-                                        	name="chefLieu" 
-                                        	th:field="*{chefLieu.codeInsee}" 
-                                        	placeholder="Entrez le chef-Lieu"/>
-                                        <label for="chefLieu">Chef-lieu</label>
-                                    </div> 
+									<div th:object="${chefLieu}">
+                                        <div class="form-floating mb-3">
+                                            <input
+                                                    class="form-control"
+                                                    type="text"
+                                                    name="chefLieu"
+                                                    th:field="*{codeInsee}"
+                                                    placeholder="Entrez le chef-Lieu"/>
+                                            <label for="chefLieu">Chef-lieu</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input
+                                                    class="form-control"
+                                                    type="text"
+                                                    name="nomCom"
+                                                    th:field="*{nomCom}"
+                                                    placeholder="Entrez le nomCom"/>
+                                            <label for="nomCom">nomCom</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input
+                                                    class="form-control"
+                                                    type="text"
+                                                    name="latitude"
+                                                    th:field="*{latitude}"
+                                                    placeholder="Entrez le latitude"/>
+                                            <label for="latitude">latitude</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input
+                                                    class="form-control"
+                                                    type="text"
+                                                    name="longitude"
+                                                    th:field="*{longitude}"
+                                                    placeholder="Entrez le longitude"/>
+                                            <label for="longitude">longitude</label>
+                                        </div>
+                                    </div>
                                  
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Suivant</button></div>
