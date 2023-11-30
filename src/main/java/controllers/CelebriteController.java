@@ -39,7 +39,7 @@ public class CelebriteController {
 		return "List_Celebrites";
 	}
 	
-	//---------CREER D'UNE NOUVELLE CELEBRITE
+	//---------CREER UNE NOUVELLE CELEBRITE
 	
 	@GetMapping("/celebrite/new")
 	public String createCelebrite(Model model, HttpSession session) {

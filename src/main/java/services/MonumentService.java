@@ -13,5 +13,9 @@ public interface MonumentService {
 	Monument getMonumentById(String id);
 	
 	Monument saveMonument(Monument monument);
+	
+	void updateMonument(Monument monumentNew, String geohash);
+	
+	void deleteMonument(String geohash);
 
 }

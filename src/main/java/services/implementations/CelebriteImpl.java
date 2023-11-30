@@ -73,7 +73,19 @@ public class CelebriteImpl implements CelebriteService {
 
 	@Override
 	public void deleteCelebrite(Integer numCelebrite) {
-		List<Monument> monuments = celebriteService.getCelebriteById(numCelebrite).getMonuments();
-		celebriteRepository.deleteById(numCelebrite);
+		Celebrite celebrite = celebriteService.getCelebriteById(numCelebrite);
+		
+		// On supprime l'association avec tous les monuments
+		for (Monument monument : celebrite.getMonuments()) {
+			monument.getCelebrites().remove(celebrite);
+		}
+		
+		// On supprime tous les éléments de la liste des monuments associés à la célébrité
+		celebrite.getMonuments().clear();
+
+        // Enregistrer la célébrité mise à jour
+        saveCelebrite(celebrite);
+		
+        celebriteRepository.deleteById(numCelebrite);
 	}
 }
