@@ -34,11 +34,9 @@
                                             <div>
                                                 <ul>
                                                     <li th:text="${departement.reg}">Région</li>
-<<<<<<< HEAD
-                                                  <!--  <li th:text="${departement.chefLieu.nomCom}">Chef-lieu</li>-->
-=======
+
                                                     <li th:text="${departement.chefLieu != null ? departement.chefLieu.nomCom : ''}">Chef-lieu</li>
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
+
                                                     <li th:text="${departement.dep}">Département</li>
                                                 </ul>
                                             </div>

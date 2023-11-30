@@ -11,20 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import models.Departement;
 import services.DepartementService;
-import services.LieuService;
-
 @Controller
 public class DepartementController {
 	
 	@Autowired
 	private DepartementService departementService;
-	
-	@Autowired
-	private LieuService lieuService;
 
-	public DepartementController(DepartementService departementService, LieuService lieuService) {
+	public DepartementController(DepartementService departementService) {
 		this.departementService = departementService;
-		this.lieuService = lieuService;
 	}
 	//---------
 	
@@ -35,53 +29,23 @@ public class DepartementController {
 		model.addAttribute("departements", departements);
 		return "List_Departements";
 	}
-<<<<<<< HEAD
 
 
-
-=======
-	//---------
-	
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 	@GetMapping("/departement/new")
 	public String createDepartement(Model model) {
 		
 		Departement departement = new Departement();
 		model.addAttribute("departement", departement);
-<<<<<<< HEAD
+
 		Lieu chefLieu = new Lieu();
 		model.addAttribute("chefLieu", chefLieu);
 
-=======
-		
-		Lieu chefLieu = new Lieu();
-		model.addAttribute("chefLieu", chefLieu);
-		
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
 		return "Create_Departement";
 	}
 
 
 	@PostMapping("/departement/save")
-<<<<<<< HEAD
 
-	public String saveDepartement(@ModelAttribute("departement") Departement departement,
-								  @ModelAttribute("chefLieu") Lieu chefLieu) {
-
-		String codeInseeChefLieu = chefLieu.getCodeInsee();
-		String nomCom = chefLieu.getNomCom();
-		double longitude = chefLieu.getLongitude();
-		double latitude = chefLieu.getLatitude();
-
-		// Save the Departement using the service
-		departementService.saveDepartement(departement,codeInseeChefLieu,nomCom,longitude,latitude);
-
-
-		// Redirect to the form for Lieu with the chosen codeInsee
-
-		return "redirect:/lieux";
-
-=======
 	public String saveDepartement(@ModelAttribute("departement") Departement departement, 
 			@ModelAttribute("chefLieu") Lieu chefLieu) {
 		
@@ -95,7 +59,7 @@ public class DepartementController {
 		
 		// Redirection
 		return "redirect:/departements";
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
+
 	}
 	
 }

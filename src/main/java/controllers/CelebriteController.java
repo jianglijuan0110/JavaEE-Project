@@ -29,12 +29,10 @@ public class CelebriteController {
         this.celebriteService = celebriteService;
         this.monumentService = monumentService;
     }
-<<<<<<< HEAD
-	//---------
-=======
+
 	
 	//---------LISTE DES CELEBRITES
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
+
 	
 	@GetMapping("/celebrites")
 	public String listCelebrites(Model model) {
@@ -74,8 +72,7 @@ public class CelebriteController {
 	    session.removeAttribute("monumentId");
 	    
 		return "redirect:/celebrites";
-<<<<<<< HEAD
-=======
+
 	}
 	
 	//---------MODIFIER UNE CELEBRITE
@@ -99,7 +96,7 @@ public class CelebriteController {
 	public String deleteCelebrite(@PathVariable("numC") Integer numC, Model model) {
 		celebriteService.deleteCelebrite(numC);
 		return "redirect:/celebrites";
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
+
 	}
 
 }

@@ -1,7 +1,6 @@
 package services.implementations;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +19,10 @@ public class CelebriteImpl implements CelebriteService {
 	
 	@Autowired
 	private MonumentService monumentService;
-<<<<<<< HEAD
-=======
-	
+
 	@Autowired
 	private CelebriteService celebriteService;
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
+
 
 	public CelebriteImpl(CelebriteRepository celebriteRepository) {
 		this.celebriteRepository = celebriteRepository;
@@ -61,8 +58,6 @@ public class CelebriteImpl implements CelebriteService {
 
         saveCelebrite(celebrite);
     }
-<<<<<<< HEAD
-=======
 
 	@Override
 	public void updateCelebrite(Celebrite celebriteNew, Integer numCelebrite) {
@@ -82,5 +77,5 @@ public class CelebriteImpl implements CelebriteService {
 		List<Monument> monuments = celebriteService.getCelebriteById(numCelebrite).getMonuments();
 		celebriteRepository.deleteById(numCelebrite);
 	}
->>>>>>> 467b778546ba9c4b9066af15557ee849a161d164
+
 }
