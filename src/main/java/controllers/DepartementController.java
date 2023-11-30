@@ -65,17 +65,11 @@ public class DepartementController {
 	}
 
 	@GetMapping("/departement/{dep}/delete")
-	public String deleteDepartement(@PathVariable("dep") String dep, RedirectAttributes redirectAttributes) {
-		String message = "";
-		if(!departementService){
-			lieuService.deleteLieu(codeInsee);
-		}
-		else {
-			message = "interdit de supprimer un chef lieu";
-		}
-		// Add the message to redirect attributes
-		redirectAttributes.addAttribute("message", message);
-		return "redirect:/lieux";
+	public String deleteDepartement(@PathVariable("dep") String dep) {
+
+		departementService.deleteDepartement(dep);
+		return "redirect:/departements";
+
 	}
 	
 }
