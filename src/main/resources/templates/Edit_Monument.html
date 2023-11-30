@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{Layout}">
+    
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+
+            <!-- Page Content-->
+            <section layout:fragment="body" class="py-5">
+                <div class="container px-5">
+                    <!-- Monument form-->
+                    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder">Rensegner les champs suivants pour mettre à jour le monument :</h1>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                                
+                                <form role="form" method="post" th:action="@{/monument/{numMonum}/update(numMonum=${monument.geohash})}" th:object="${monument}" id="monumentForm">
+                                
+                                	<input type="hidden" th:field="*{geohash}">
+                                	
+                                    <!-- geohash -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="geohash" 
+                                        	th:field="*{geohash}" 
+                                        	placeholder="Entrez in id"/>
+                                        <label for="geohash">Saisir un identifiant</label>
+                                    </div>
+                                    
+                                    <!-- nom -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="nom" 
+                                        	th:field="*{nom}" 
+                                        	placeholder="Entrez le nom"/>
+                                        <label for="nom">Nom du monument</label>
+                                    </div>
+                                    
+                                    <!-- typeM -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="typeM" 
+                                        	th:field="*{typeM}" 
+                                        	placeholder="Entrez le type de monument"/>
+                                        <label for="typeM">Type de monument</label>
+                                    </div>
+                                    
+                                    <!-- proprietaire -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="proprietaire" 
+                                        	th:field="*{proprietaire}" 
+                                        	placeholder="Entrez le proprietaire"/>
+                                        <label for="proprietaire">Propriétaire du monument</label>
+                                    </div>
+                                    
+                                    <!-- longitude -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="longitude" 
+                                        	th:field="*{longitude}" 
+                                        	placeholder="Entrez la longitude"/>
+                                        <label for="longitude">Longitude</label>
+                                    </div>
+                                    
+                                    <!-- latitude -->
+                                    <div class="form-floating mb-3">
+                                        <input 
+                                        	class="form-control" 
+                                        	type="text" 
+                                        	name="latitude" 
+                                        	th:field="*{latitude}" 
+                                        	placeholder="Entrez la latitude"/>
+                                        <label for="latitude">Latitude</label>
+                                    </div>
+                                    
+                                    <!-- lieu -->
+									<div class="form-floating mb-3">
+									    <select class="form-control" name="codeLieu" th:field="*{codeLieu.codeInsee}">
+									        <option value="" selected>Sélectionner un lieu</option>
+									        <th:block th:each="departement : ${departements}">
+									        	<option disabled value="" th:text="${'--------------------------------' + departement.nomDep + '--------------------------------'}"></option>
+									            <th:block th:each="lieu : ${departement.lieux}">
+									                <option th:value="${lieu.codeInsee}" th:text="${lieu.nomCom + ' (' + lieu.codeInsee + ')'}"></option>
+									            </th:each>
+									        </th:block>
+									    </select>
+									</div>
+									
+									<div class="d-flex align-items-center justify-content-between mb-4">
+		                        		<h2></h2>
+		                                <a class="btn btn-primary px-4 py-3" th:href="@{/lieu/new}">
+                                            Ajouter un lieu
+		                                </a>
+		                            </div>
+                                    
+                                    <!-- Submit Button-->
+                                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Suivant</button></div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>   
+    </body>
+</html>
