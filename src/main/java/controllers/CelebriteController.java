@@ -91,7 +91,7 @@ public class CelebriteController {
 	//---------SUPRIMMER UNE CELEBRITE
 	
 	@GetMapping("/celebrite/{numC}/delete")
-	public String deleteCelebrite(@PathVariable("numC") Integer numC, Model model) {
+	public String deleteCelebrite(@PathVariable("numC") Integer numC) {
 		celebriteService.deleteCelebrite(numC);
 		return "redirect:/celebrites";
 

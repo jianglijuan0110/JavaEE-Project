@@ -3,6 +3,7 @@ package services;
 import java.util.List;
 
 import models.Departement;
+import models.Lieu;
 
 
 public interface DepartementService {
@@ -15,5 +16,7 @@ public interface DepartementService {
 
 	Departement saveDepartement(Departement departement, String codeInseeChefLieu, 
 			String nomCom, double longitude, double latitude);
+
+	void deleteDepartement(String dep);
 
 }

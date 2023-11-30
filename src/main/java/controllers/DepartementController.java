@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import models.Departement;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.DepartementService;
 @Controller
 public class DepartementController {
@@ -60,6 +62,20 @@ public class DepartementController {
 		// Redirection
 		return "redirect:/departements";
 
+	}
+
+	@GetMapping("/departement/{dep}/delete")
+	public String deleteDepartement(@PathVariable("dep") String dep, RedirectAttributes redirectAttributes) {
+		String message = "";
+		if(!departementService){
+			lieuService.deleteLieu(codeInsee);
+		}
+		else {
+			message = "interdit de supprimer un chef lieu";
+		}
+		// Add the message to redirect attributes
+		redirectAttributes.addAttribute("message", message);
+		return "redirect:/lieux";
 	}
 	
 }

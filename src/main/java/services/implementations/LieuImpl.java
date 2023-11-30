@@ -38,8 +38,16 @@ public class LieuImpl implements LieuService {
 
 	@Override
 	public Lieu saveLieu(Lieu lieu) {
-
 		return lieuRepository.save(lieu);
+	}
+
+	/*void updateLieu(Lieu lieuNew, String codeInsee){
+
+	}*/
+	@Override
+	public void deleteLieu(String codeInsee){
+		lieuRepository.deleteById(codeInsee);
+
 	}
 
 

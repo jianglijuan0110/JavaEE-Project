@@ -55,13 +55,9 @@ public class DepartementImpl implements DepartementService {
 			disableForeignKeyChecks();
 
 			Lieu chefLieu = new Lieu(codeInseeChefLieu, nomCom, longitude, latitude);
-			lieuRepository.save(chefLieu);
 			departement.setChefLieu(chefLieu);
-
-			Departement newDepartement = departementRepository.save(departement);
 			chefLieu.setDepartement(departement);
-			lieuRepository.save(chefLieu);
-			return newDepartement;
+			return departementRepository.save(departement);
 
 		} catch (DataIntegrityViolationException e) {
 			// Handle specific data integrity violation
@@ -91,5 +87,10 @@ public class DepartementImpl implements DepartementService {
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
 
+	@Override
+	public void deleteDepartement(String dep){
+		departementRepository.deleteById(dep);
+
+	}
 
 }

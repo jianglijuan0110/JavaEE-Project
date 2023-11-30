@@ -82,12 +82,18 @@ public class MonumentController {
 		return "Edit_Monument";
 	}
 	
-	@PostMapping("/celebrite/{numMonum}/update")
+	@PostMapping("/monument/{numMonum}/update")
 	public String updateMonument(@PathVariable("numMonum") String numMonum, @ModelAttribute("monument") Monument monument) {
 		monumentService.updateMonument(monument, numMonum);
 		return "redirect:/monuments";
 	}
 	
 	//---------SUPPRIMER UN MONUMENT
+	@GetMapping("/monument/{numMonum}/delete")
+	public String deleteMonument(@PathVariable("numMonum") String numMonum) {
+		monumentService.deleteMonument(numMonum);
+		return "redirect:/monuments";
+
+	}
 
 }

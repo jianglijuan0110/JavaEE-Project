@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityManager;
 import services.LieuService;
 import repositories.MonumentRepository;
-import models.Celebrite;
 import models.Lieu;
 import models.Monument;
 import services.MonumentService;
@@ -56,38 +55,24 @@ public class MonumentImpl implements MonumentService {
 		Monument monument = monumentService.getMonumentById(geohash);
         
         // Mettre à jour les champs nécessaires
-		monument.setGeohash(monumentNew.getGeohash());
 		monument.setNom(monumentNew.getNom());
 		monument.setProprietaire(monumentNew.getProprietaire());
 		monument.setTypeM(monumentNew.getTypeM());
 		monument.setLatitude(monumentNew.getLatitude());
 		monument.setLongitude(monumentNew.getLongitude());
-		
+
 		// Mise à jour du lieu associé
-        Lieu nouveauLieu = lieuService.getLieuById(monumentNew.getCodeLieu().getCodeInsee());
+       Lieu nouveauLieu = lieuService.getLieuById(monumentNew.getCodeLieu().getCodeInsee());
         if (nouveauLieu != null) {
             monument.setCodeLieu(nouveauLieu);
         }
-        
+
         monumentRepository.save(monument);
 	}
 
 	@Override
 	public void deleteMonument(String geohash) {
-		Monument monument = monumentService.getMonumentById(geohash);
-		
-		// On supprime l'association avec toutes les célébrités
-		for (Celebrite celebrite : monument.getCelebrites()) {
-			celebrite.getMonuments().remove(monument);
-		}
-		
-		// On supprime tous les éléments de la liste des célébritéss associés au monument
-		monument.getCelebrites().clear();
-
-        // Enregistrer le monument mise à jour
-        saveMonument(monument);
-		
-        monumentRepository.deleteById(geohash);
+		monumentRepository.deleteById(geohash);
 	}
 
 }

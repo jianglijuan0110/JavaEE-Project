@@ -22,6 +22,12 @@
                                     Ajouter un lieu
                                 </a>
                             </div>
+
+                            <div class="bg-danger p-2 rounded-4 text-white text-center" th:if="${message}">
+                                <h5 class="m-0" th:text="${message}"></h5>
+                            </div>
+
+                            <div class="pb-5"></div>
                             <div th:each="lieu : ${lieux}" class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-5">
                                     <div class="row align-items-center gx-5">
@@ -40,7 +46,7 @@
                                             </div>
                                             <div style="float: right; display: flex; gap: 30px;" >
                                             	<a class="btn btn-primary px-4">Modifier</a>
-                                            	<a class="btn btn-primary px-4">Supprimer</a>
+                                            	<a class="btn btn-primary px-4" th:href="@{/lieu/{codeInsee}/delete(codeInsee=${lieu.codeInsee})}">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>

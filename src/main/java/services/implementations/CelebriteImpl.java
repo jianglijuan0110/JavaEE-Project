@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import models.Celebrite;
 import models.Monument;
 import repositories.CelebriteRepository;
@@ -65,7 +64,7 @@ public class CelebriteImpl implements CelebriteService {
         Celebrite celebrite = celebriteService.getCelebriteById(numCelebrite);
         
         // Mettre à jour les champs nécessaires
-        celebrite.setNom(celebriteNew.getNom());
+		celebrite.setNom(celebriteNew.getNom());
         celebrite.setPrenom(celebriteNew.getPrenom());
         celebrite.setNationalite(celebriteNew.getNationalite());
         
@@ -74,19 +73,6 @@ public class CelebriteImpl implements CelebriteService {
 
 	@Override
 	public void deleteCelebrite(Integer numCelebrite) {
-		Celebrite celebrite = celebriteService.getCelebriteById(numCelebrite);
-		
-		// On supprime l'association avec tous les monuments
-		for (Monument monument : celebrite.getMonuments()) {
-			monument.getCelebrites().remove(celebrite);
-		}
-		
-		// On supprime tous les éléments de la liste des monuments associés à la célébrité
-		celebrite.getMonuments().clear();
-
-        // Enregistrer la célébrité mise à jour
-        saveCelebrite(celebrite);
-		
         celebriteRepository.deleteById(numCelebrite);
 	}
 

@@ -20,17 +20,7 @@
                                 <form role="form" method="post" th:action="@{/monument/{numMonum}/update(numMonum=${monument.geohash})}" th:object="${monument}" id="monumentForm">
                                 
                                 	<input type="hidden" th:field="*{geohash}">
-                                	
-                                    <!-- geohash -->
-                                    <div class="form-floating mb-3">
-                                        <input 
-                                        	class="form-control" 
-                                        	type="text" 
-                                        	name="geohash" 
-                                        	th:field="*{geohash}" 
-                                        	placeholder="Entrez in id"/>
-                                        <label for="geohash">Saisir un identifiant</label>
-                                    </div>
+
                                     
                                     <!-- nom -->
                                     <div class="form-floating mb-3">
