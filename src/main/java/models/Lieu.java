@@ -39,8 +39,7 @@ public class Lieu {
 	 * Si l'on veut une clé étrangère dans la table Departement, on met "mappedBy"
 	 * "chefLieu" est le nom de l'attribut dans la classe Departement
 	 */
-	@OneToOne(mappedBy="chefLieu")
-	private Departement departementCheflieu;
+
 	
 	
 	//CONSTRUCTEURS
@@ -109,15 +108,6 @@ public class Lieu {
 
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
-	}
-	//---------
-
-	public Departement getDepartementCheflieu() {
-		return departementCheflieu;
-	}
-
-	public void setDepartementCheflieu(Departement departementCheflieu) {
-		this.departementCheflieu = departementCheflieu;
 	}
 	//---------
 	
