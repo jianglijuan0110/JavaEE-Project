@@ -18,7 +18,9 @@ public class Departement {
 	 * "OneToOne" pour dire "un departement, un chef de lieu"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
+
 	@OneToOne
+
 	@JoinColumn(name = "chefLieu")
 	private Lieu chefLieu;
 	
@@ -30,6 +32,7 @@ public class Departement {
 	 * "departements" est le nom de l'attribut dans la classe Lieu
 	 */
 	@OneToMany(mappedBy="departement",cascade = CascadeType.REMOVE)
+
 	private List<Lieu> lieux;
 	
 	

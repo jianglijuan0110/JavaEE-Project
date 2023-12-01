@@ -66,8 +66,10 @@ public class DepartementController {
 
 	@GetMapping("/departement/{dep}/delete")
 	public String deleteDepartement(@PathVariable("dep") String dep) {
+
 		departementService.deleteDepartement(dep);
 		return "redirect:/departements";
+
 	}
 	
 }
