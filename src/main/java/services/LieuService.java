@@ -3,6 +3,7 @@ package services;
 import java.util.List;
 
 import models.Lieu;
+import models.Monument;
 
 public interface LieuService {
 	
@@ -13,5 +14,9 @@ public interface LieuService {
 	Lieu getLieuById(String id);
 	
 	Lieu saveLieu(Lieu lieu);
+
+	//void updateLieu(Lieu lieuNew, String codeInsee);
+
+	void deleteLieu(String codeInsee);
 
 }

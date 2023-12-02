@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import jakarta.servlet.http.HttpSession;
 import models.Celebrite;
 import models.Monument;
@@ -29,8 +27,10 @@ public class CelebriteController {
         this.celebriteService = celebriteService;
         this.monumentService = monumentService;
     }
+
 	
 	//---------LISTE DES CELEBRITES
+
 	
 	@GetMapping("/celebrites")
 	public String listCelebrites(Model model) {
@@ -70,6 +70,7 @@ public class CelebriteController {
 	    session.removeAttribute("monumentId");
 	    
 		return "redirect:/celebrites";
+
 	}
 	
 	//---------MODIFIER UNE CELEBRITE
@@ -90,9 +91,10 @@ public class CelebriteController {
 	//---------SUPRIMMER UNE CELEBRITE
 	
 	@GetMapping("/celebrite/{numC}/delete")
-	public String deleteCelebrite(@PathVariable("numC") Integer numC, Model model) {
+	public String deleteCelebrite(@PathVariable("numC") Integer numC) {
 		celebriteService.deleteCelebrite(numC);
 		return "redirect:/celebrites";
+
 	}
 
 }

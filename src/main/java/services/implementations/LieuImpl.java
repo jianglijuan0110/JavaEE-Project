@@ -1,12 +1,9 @@
 package services.implementations;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import models.Lieu;
-
 import repositories.LieuRepository;
 import services.LieuService;
 
@@ -17,6 +14,7 @@ public class LieuImpl implements LieuService {
 
 	@Autowired
 	private LieuRepository lieuRepository;
+
 
 	public LieuImpl(LieuRepository lieuRepository) {
 		this.lieuRepository = lieuRepository;
@@ -36,10 +34,22 @@ public class LieuImpl implements LieuService {
 	public Lieu getLieuById(String id) {
 		return lieuRepository.findById(id).get();
 	}
-	
+
+
 	@Override
 	public Lieu saveLieu(Lieu lieu) {
 		return lieuRepository.save(lieu);
 	}
+
+	/*void updateLieu(Lieu lieuNew, String codeInsee){
+
+	}*/
+	@Override
+	public void deleteLieu(String codeInsee){
+		lieuRepository.deleteById(codeInsee);
+
+	}
+
+
 
 }
