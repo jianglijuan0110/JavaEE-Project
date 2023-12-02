@@ -28,7 +28,7 @@ public class Celebrite {
 	 * "joinColumns" spécifie la colonne de la table d'association qui fait référence à l'entité actuelle
 	 * "inverseJoinColumns" spécifie la colonne de la table d'association qui fait référence à l'autre entité 
 	 */
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name="AssocieA",
 		joinColumns=@JoinColumn(name="numCelebrite"),
 		inverseJoinColumns=@JoinColumn(name="codeM"))

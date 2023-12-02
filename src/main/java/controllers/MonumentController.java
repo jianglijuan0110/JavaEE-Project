@@ -90,6 +90,12 @@ public class MonumentController {
 	
 	//---------SUPPRIMER UN MONUMENT
 	
+	@GetMapping("/monument/{numMonum}/delete")
+	public String deleteMonument(@PathVariable("numMonum") String numMonum) {
+		monumentService.deleteMonument(numMonum);
+		return "redirect:/monuments";
+	}
+	
 	//---------RECHERCHER UN MONUMENT
 	
 	@GetMapping("/monument/searchNom")

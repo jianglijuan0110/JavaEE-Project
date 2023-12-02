@@ -3,7 +3,6 @@ package services.implementations;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,13 +19,13 @@ public class DepartementImpl implements DepartementService {
 
 	@Autowired
 	private DepartementRepository departementRepository;
-	
+
 	@Autowired
 	private LieuRepository lieuRepository;
 	
 	@Autowired
     private EntityManager entityManager;
-	
+
 	public DepartementImpl(DepartementRepository departementRepository) {
 		this.departementRepository = departementRepository;
 	}
@@ -56,13 +55,9 @@ public class DepartementImpl implements DepartementService {
 			disableForeignKeyChecks();
 
 			Lieu chefLieu = new Lieu(codeInseeChefLieu, nomCom, longitude, latitude);
-			lieuRepository.save(chefLieu);
 			departement.setChefLieu(chefLieu);
-
-			Departement newDepartement = departementRepository.save(departement);
 			chefLieu.setDepartement(departement);
-			lieuRepository.save(chefLieu);
-			return newDepartement;
+			return departementRepository.save(departement);
 
 		} catch (DataIntegrityViolationException e) {
 			// Handle specific data integrity violation
@@ -91,4 +86,11 @@ public class DepartementImpl implements DepartementService {
 		String query = "SET foreign_key_checks = 1";
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
+
+	@Override
+	public void deleteDepartement(String dep){
+		departementRepository.deleteById(dep);
+
+	}
+
 }
