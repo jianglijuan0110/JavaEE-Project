@@ -17,5 +17,11 @@ public interface MonumentService {
 	void updateMonument(Monument monumentNew, String geohash);
 	
 	void deleteMonument(String geohash);
+	
+	List<Monument> searchMonumentByNom(String nom);
+	
+	List<Monument> searchMonumentByLieu(String nomLieu);
+	
+	List<Monument> searchMonumentByDepartement(String nomDept);
 
 }

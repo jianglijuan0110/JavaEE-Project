@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import models.Celebrite;
 import models.Monument;
 import services.DepartementService;
 import services.LieuService;
@@ -82,12 +82,47 @@ public class MonumentController {
 		return "Edit_Monument";
 	}
 	
-	@PostMapping("/celebrite/{numMonum}/update")
+	@PostMapping("/monument/{numMonum}/update")
 	public String updateMonument(@PathVariable("numMonum") String numMonum, @ModelAttribute("monument") Monument monument) {
 		monumentService.updateMonument(monument, numMonum);
 		return "redirect:/monuments";
 	}
 	
 	//---------SUPPRIMER UN MONUMENT
+	
+	//---------RECHERCHER UN MONUMENT
+	
+	@GetMapping("/monument/searchNom")
+	public String searchMonumentByNom(HttpServletRequest request, Model model) {
+		
+		String nom = request.getParameter("nom");
+		
+		List<Monument> monuments = monumentService.searchMonumentByNom(nom);
+		model.addAttribute("monuments", monuments);
+		
+		return "Search_MonumentByNom";
+	}
+	
+	@GetMapping("/monument/searchLieu")
+	public String searchMonumentByLieu(HttpServletRequest request, Model model) {
+		
+		String lieu = request.getParameter("lieu");
+		
+		List<Monument> monuments = monumentService.searchMonumentByLieu(lieu);
+		model.addAttribute("monuments", monuments);
+		
+		return "Search_MonumentByLieu";
+	}
+	
+	@GetMapping("/monument/searchDept")
+	public String searchMonumentByDepartement(HttpServletRequest request, Model model) {
+		
+		String dep = request.getParameter("dep");
+		
+		List<Monument> monuments = monumentService.searchMonumentByDepartement(dep);
+		model.addAttribute("monuments", monuments);
+		
+		return "Search_MonumentByDept";
+	}
 
 }

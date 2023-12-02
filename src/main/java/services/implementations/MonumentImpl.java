@@ -1,14 +1,18 @@
 package services.implementations;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityManager;
 import services.LieuService;
 import repositories.MonumentRepository;
 import models.Celebrite;
+import models.Departement;
 import models.Lieu;
 import models.Monument;
 import services.MonumentService;
@@ -24,9 +28,6 @@ public class MonumentImpl implements MonumentService {
 	
 	@Autowired
 	private MonumentService monumentService;
-	
-	@Autowired
-    private EntityManager entityManager;
 	
 	public MonumentImpl(MonumentRepository monumentRepository) {
 		this.monumentRepository = monumentRepository;
@@ -90,6 +91,38 @@ public class MonumentImpl implements MonumentService {
         saveMonument(monument);
 		
         monumentRepository.deleteById(geohash);
+	}
+
+	@Override
+	public List<Monument> searchMonumentByNom(String nom) {
+		return monumentRepository.findAll().stream()
+				.filter(m -> m.getNom().equalsIgnoreCase(nom))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Monument> searchMonumentByLieu(String nomLieu) {
+		return monumentRepository.findAll().stream()
+				.filter(m -> m.getCodeLieu().getNomCom().equalsIgnoreCase(nomLieu))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Monument> searchMonumentByDepartement(String nomDept) {
+		List<Lieu> lieux = lieuService.getLieux().stream()
+	            .filter(l -> {
+	                Departement departement = l.getDepartement();
+	                return departement != null && departement.getNomDep() != null && departement.getNomDep().equalsIgnoreCase(nomDept);
+	            })
+	            .collect(Collectors.toList());
+
+	    Set<Monument> monuments = new HashSet<>();
+
+	    for (Lieu lieu : lieux) {
+	        monuments.addAll(lieu.getMonuments());
+	    }
+
+	    return new ArrayList<>(monuments);
 	}
 
 }
