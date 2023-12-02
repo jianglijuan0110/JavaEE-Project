@@ -23,7 +23,7 @@ public class Lieu {
 	 * Si l'on veut une clé étrangère dans la table Monument, on met "mappedBy"
 	 * "codeLieu" est le nom de cet attribut dans la classe Monument
 	 */
-	@OneToMany(mappedBy="codeLieu")
+	@OneToMany(mappedBy="codeLieu",cascade = CascadeType.REMOVE)
 	private List<Monument> monuments;
 	
 	/*
