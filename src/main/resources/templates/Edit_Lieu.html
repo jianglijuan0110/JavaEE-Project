@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Layout}">
+
+<body class="d-flex flex-column h-100 bg-light">
+<main class="flex-shrink-0">
+
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container px-5">
+            <!-- Monument form-->
+            <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Rensegner les champs suivants pour mettre à jour le lieu :</h1>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+
+                        <form role="form" method="post" th:action="@{/lieu/{codeInsee}/update(codeInsee=${lieu.codeInsee})}" th:object="${lieu}" id="lieuForm">
+
+                            <input type="hidden" th:field="*{codeInsee}">
+
+
+                            <!-- nom -->
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="nom"
+                                        th:field="*{nomCom}"
+                                        placeholder="Entrez le nom"/>
+                                <label for="nom">Nom du Commune</label>
+                            </div>
+
+
+
+                            <!-- longitude -->
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="longitude"
+                                        th:field="*{longitude}"
+                                        placeholder="Entrez la longitude"/>
+                                <label for="longitude">Longitude</label>
+                            </div>
+
+                            <!-- latitude -->
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="latitude"
+                                        th:field="*{latitude}"
+                                        placeholder="Entrez la latitude"/>
+                                <label for="latitude">Latitude</label>
+                            </div>
+
+                            <!-- dep -->
+                            <div class="form-floating mb-3">
+                                <select class="form-control" name="dep" th:field="*{departement.dep}">
+                                    <option value="" selected>Sélectionner un département</option>
+                                    <th:block th:each="departement : ${departements}">
+                                        <option th:value="${departement.dep}" th:text="${departement.nomDep + ' (' + departement.dep + ')'}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h2></h2>
+                                <a class="btn btn-primary px-4 py-3" th:href="@{/departement/new}">
+                                    Ajouter un departement
+                                </a>
+                            </div>
+
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enreigistrer</button></div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

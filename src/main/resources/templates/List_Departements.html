@@ -41,7 +41,7 @@
                                                 </ul>
                                             </div>
                                             <div style="float: right; display: flex; gap: 30px;" >
-                                            	<a class="btn btn-primary px-4">Modifier</a>
+                                            	<a class="btn btn-primary px-4" th:href="@{/departement/{dep}/edit(dep=${departement.dep})}">Modifier</a>
                                             	<a class="btn btn-primary px-4" th:href="@{/departement/{dep}/delete(dep=${departement.dep})}">Supprimer</a>
                                             </div>
                                         </div>

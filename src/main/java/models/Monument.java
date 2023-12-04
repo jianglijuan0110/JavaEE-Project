@@ -37,7 +37,7 @@ public class Monument {
 	 * Si l'on veut une clé étrangère dans la table Celebrite, on met "mappedBy"
 	 * "monuments" est le nom de cet attribut dans la classe Celebrite
 	 */
-	@ManyToMany(mappedBy="monuments")
+	@ManyToMany(mappedBy="monuments",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Celebrite> celebrites;
 
 	

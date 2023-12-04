@@ -12,11 +12,13 @@ import models.Lieu;
 import repositories.DepartementRepository;
 import repositories.LieuRepository;
 import services.DepartementService;
+import services.LieuService;
 
 
 @Service
 public class DepartementImpl implements DepartementService {
-
+	@Autowired
+	private DepartementService departementService;
 	@Autowired
 	private DepartementRepository departementRepository;
 
@@ -87,6 +89,21 @@ public class DepartementImpl implements DepartementService {
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
 
+	@Override
+	public void updateDepartement(Departement departementNew, String dep){
+
+		// Récupérer le departement existante à partir de la base de données
+		Departement departement = departementService.getDepartementById(dep);
+
+		// Mettre à jour les champs nécessaires
+		departement.setDep(departementNew.getDep());
+		departement.setNomDep(departementNew.getNomDep());
+		departement.setChefLieu(departementNew.getChefLieu());
+		departement.setReg(departementNew.getReg());
+
+		departementRepository.save(departement);
+
+	}
 	@Override
 	public void deleteDepartement(String dep){
 		departementRepository.deleteById(dep);

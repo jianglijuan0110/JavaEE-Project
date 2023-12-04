@@ -15,7 +15,7 @@ public interface LieuService {
 	
 	Lieu saveLieu(Lieu lieu);
 
-	//void updateLieu(Lieu lieuNew, String codeInsee);
+	void updateLieu(Lieu lieuNew, String codeInsee);
 
 	void deleteLieu(String codeInsee);
 

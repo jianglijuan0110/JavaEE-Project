@@ -17,6 +17,9 @@ public interface DepartementService {
 	Departement saveDepartement(Departement departement, String codeInseeChefLieu, 
 			String nomCom, double longitude, double latitude);
 
+	void updateDepartement(Departement departementNew, String dep);
+
+
 	void deleteDepartement(String dep);
 
 }
