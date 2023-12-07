@@ -25,9 +25,6 @@ public class MonumentImpl implements MonumentService {
 	@Autowired
 	private LieuService lieuService;
 	
-	@Autowired
-	private MonumentService monumentService;
-	
 	public MonumentImpl(MonumentRepository monumentRepository) {
 		this.monumentRepository = monumentRepository;
 	}
@@ -55,27 +52,36 @@ public class MonumentImpl implements MonumentService {
 	@Override
 	public void updateMonument(Monument monumentNew, String geohash) {
 		// Récupérer le monument existante à partir de la base de données
-		Monument monument = monumentService.getMonumentById(geohash);
-        
-        // Mettre à jour les champs nécessaires
-		monument.setNom(monumentNew.getNom());
-		monument.setProprietaire(monumentNew.getProprietaire());
-		monument.setTypeM(monumentNew.getTypeM());
-		monument.setLatitude(monumentNew.getLatitude());
-		monument.setLongitude(monumentNew.getLongitude());
+		List<Monument> monuments = monumentRepository.findAll().stream()
+				.filter(m -> m.getGeohash().equals(geohash))
+				.collect(Collectors.toList());
+		
+		for (Monument monument : monuments) {
+			// Mettre à jour les champs nécessaires
+			monument.setNom(monumentNew.getNom());
+			monument.setProprietaire(monumentNew.getProprietaire());
+			monument.setTypeM(monumentNew.getTypeM());
+			monument.setLatitude(monumentNew.getLatitude());
+			monument.setLongitude(monumentNew.getLongitude());
 
-		// Mise à jour du lieu associé
-       Lieu nouveauLieu = lieuService.getLieuById(monumentNew.getCodeLieu().getCodeInsee());
-        if (nouveauLieu != null) {
-            monument.setCodeLieu(nouveauLieu);
-        }
+			// Mise à jour du lieu associé
+	       Lieu nouveauLieu = lieuService.getLieuById(monumentNew.getCodeLieu().getCodeInsee());
+	        if (nouveauLieu != null) {
+	            monument.setCodeLieu(nouveauLieu);
+	        }
 
-        monumentRepository.save(monument);
+	        monumentRepository.save(monument);
+		}
 	}
 
 	@Override
 	public void deleteMonument(String geohash) {
-		monumentRepository.deleteById(geohash);
+		Monument monument = monumentRepository.findById(geohash).orElse(null);
+		   if (monument != null) {
+		      monument.getCelebrites().clear();
+		      monumentRepository.delete(monument);
+		   }
+		//monumentRepository.deleteById(geohash);
 	}
 
 	@Override

@@ -12,10 +12,7 @@ public interface CelebriteService {
 	
 	Celebrite getCelebriteById(Integer id);
 	
-	Celebrite saveCelebrite(Celebrite celebrite);
-	
-	void associateMonumentWithCelebrite(String monumentId, Integer celebriteId);
-
+	Celebrite saveCelebrite(String monumentId, Celebrite celebrite);
 	
 	void updateCelebrite(Celebrite celebriteNew, Integer numCelebrite);
 	
