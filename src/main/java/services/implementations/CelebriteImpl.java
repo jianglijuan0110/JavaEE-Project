@@ -1,6 +1,7 @@
 package services.implementations;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,6 @@ public class CelebriteImpl implements CelebriteService {
 	
 	@Autowired
 	private MonumentService monumentService;
-
-	@Autowired
-	private CelebriteService celebriteService;
 
 
 	public CelebriteImpl(CelebriteRepository celebriteRepository) {
@@ -43,32 +41,30 @@ public class CelebriteImpl implements CelebriteService {
 	}
 
 	@Override
-	public Celebrite saveCelebrite(Celebrite celebrite) {
+	public Celebrite saveCelebrite(String monumentId, Celebrite celebrite) {
+		Monument monument = monumentService.getMonumentById(monumentId);
+
+        monument.getCelebrites().add(celebrite);
+        celebrite.getMonuments().add(monument);
+        
 		return celebriteRepository.save(celebrite);
 	}
 	
 	@Override
-	public void associateMonumentWithCelebrite(String monumentId, Integer celebriteId) {
-        Monument monument = monumentService.getMonumentById(monumentId);
-        Celebrite celebrite = getCelebriteById(celebriteId);
-
-        monument.getCelebrites().add(celebrite);
-        celebrite.getMonuments().add(monument);
-
-        saveCelebrite(celebrite);
-    }
-
-	@Override
 	public void updateCelebrite(Celebrite celebriteNew, Integer numCelebrite) {
 		// Récupérer la célébrité existante à partir de la base de données
-        Celebrite celebrite = celebriteService.getCelebriteById(numCelebrite);
-        
-        // Mettre à jour les champs nécessaires
-		celebrite.setNom(celebriteNew.getNom());
-        celebrite.setPrenom(celebriteNew.getPrenom());
-        celebrite.setNationalite(celebriteNew.getNationalite());
-        
-        celebriteRepository.save(celebrite);
+		List<Celebrite> celebrites = celebriteRepository.findAll().stream()
+				.filter(c -> c.getNumCelebrite().equals(numCelebrite))
+				.collect(Collectors.toList());
+		
+		for (Celebrite celebrite : celebrites) {
+			// Mettre à jour les champs nécessaires
+			celebrite.setNom(celebriteNew.getNom());
+	        celebrite.setPrenom(celebriteNew.getPrenom());
+	        celebrite.setNationalite(celebriteNew.getNationalite());
+	        
+	        celebriteRepository.save(celebrite);
+		}
 	}
 
 	@Override

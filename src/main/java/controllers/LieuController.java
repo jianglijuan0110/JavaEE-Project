@@ -56,7 +56,7 @@ public class LieuController {
 		// Save the Lieu using the service
 		lieuService.saveLieu(lieu);
 
-		// Redirect to the form
+		// Redirect to the form à
 		return "redirect:/lieux";
 	}
 

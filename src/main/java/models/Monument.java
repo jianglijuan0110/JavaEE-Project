@@ -11,7 +11,12 @@ public class Monument {
 	
 	//ATTRIBUTS
 	
-	@Id //@GeneratedValue(strategy = GenerationType.UUID)
+	/*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demo_sql")
+	@GenericGenerator(
+			name = "demo_sql", 
+			type = "models.MonumentIdGenerator"
+	)*/
+	@Id
 	private String geohash;
 	
 	private String nom;
@@ -28,7 +33,7 @@ public class Monument {
 	 * "ManyToOne" pour dire "plusieurs monuments, un lieu"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name="codeInsee")
 	private Lieu codeLieu;
 	

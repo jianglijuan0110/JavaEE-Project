@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+
 import java.util.*;
 
 @Entity
@@ -23,6 +24,7 @@ public class Lieu {
 	 * Si l'on veut une clé étrangère dans la table Monument, on met "mappedBy"
 	 * "codeLieu" est le nom de cet attribut dans la classe Monument
 	 */
+
 	@OneToMany(mappedBy="codeLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Monument> monuments;
 	
@@ -39,8 +41,10 @@ public class Lieu {
 	 * Si l'on veut une clé étrangère dans la table Departement, on met "mappedBy"
 	 * "chefLieu" est le nom de l'attribut dans la classe Departement
 	 */
+
 	@OneToOne(mappedBy = "chefLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Departement departementChefLieu;
+
 
 
 	//private boolean isChefLieu;

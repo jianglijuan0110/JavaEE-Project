@@ -57,14 +57,12 @@ public class CelebriteController {
 	}
 	
 	@PostMapping("/celebrite/save")
-	public String saveCelebrite(@ModelAttribute("celebrite") Celebrite celebrite, HttpSession session, Model model) {
+	public String saveCelebrite(@ModelAttribute("celebrite") Celebrite celebrite, HttpSession session) {
 		
 		// Récupérer l'ID du monument à partir de la session
 	    String id = (String) session.getAttribute("monumentId");
 	    
-		celebriteService.saveCelebrite(celebrite);
-		
-		celebriteService.associateMonumentWithCelebrite(id, celebrite.getNumCelebrite());
+		celebriteService.saveCelebrite(id, celebrite);
 		
 		// Supprimer l'ID du monument de la session une fois utilisé
 	    session.removeAttribute("monumentId");

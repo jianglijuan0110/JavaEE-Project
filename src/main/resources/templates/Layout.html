@@ -8,7 +8,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
 
-        <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Nom de la page</title>
+        <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Projet JavaEE</title>
         <link rel="stylesheet" th:href="@{/css/styles.css}">
 
         <!-- Favicon-->
@@ -31,7 +31,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Chercher un monument</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/login}">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/register}">S'inscrire</a></li>
                 </ul>
             </div>
         </div>
