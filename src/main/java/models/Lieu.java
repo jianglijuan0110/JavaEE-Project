@@ -1,7 +1,6 @@
 package models;
 
 import jakarta.persistence.*;
-
 import java.util.*;
 
 @Entity
@@ -24,7 +23,6 @@ public class Lieu {
 	 * Si l'on veut une clé étrangère dans la table Monument, on met "mappedBy"
 	 * "codeLieu" est le nom de cet attribut dans la classe Monument
 	 */
-
 	@OneToMany(mappedBy="codeLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Monument> monuments;
 	
@@ -37,17 +35,12 @@ public class Lieu {
 	private Departement departement;
 	
 	/*
-	 * "OneToOne" pour dire "un chef de lieu, un departement"
-	 * Si l'on veut une clé étrangère dans la table Departement, on met "mappedBy"
-	 * "chefLieu" est le nom de l'attribut dans la classe Departement
+	 * "true" si le lieu est un chef-lieu
+	 * "false" sinon
+	 * "Transient" pour dire que la propriété ne doit pas être persisté en base de données
 	 */
-
-	@OneToOne(mappedBy = "chefLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Departement departementChefLieu;
-
-
-
-	//private boolean isChefLieu;
+	@Transient
+	private boolean chefLieu;
 	
 	
 	//CONSTRUCTEURS
@@ -118,6 +111,12 @@ public class Lieu {
 		this.departement = departement;
 	}
 	//---------
-
+	
+	public boolean estChefLieu() {
+        if(this.departement.getChefLieu().codeInsee == this.codeInsee) {
+        	return true;
+        }
+        return false;
+    }
 	
 }

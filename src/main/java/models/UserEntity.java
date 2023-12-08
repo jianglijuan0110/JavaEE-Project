@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,11 @@ public class User {
 		inverseJoinColumns=@JoinColumn(name="roleId", referencedColumnName="id"))
 	private List<Role> roles;
 	
-	public User() {
+	public UserEntity() {
 		this.roles = new ArrayList<>();
 	}
 	
-	public User(int id, String username, String email, String password) {
+	public UserEntity(int id, String username, String email, String password) {
 		super();
 		this.id = id;
 		this.username = username;
