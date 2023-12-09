@@ -19,8 +19,8 @@ public class Departement {
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
 
-	@OneToOne
 
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "chefLieu")
 	private Lieu chefLieu;
 	
@@ -31,8 +31,7 @@ public class Departement {
 	 * Si l'on veut une clé étrangère dans la table Lieu, on met "mappedBy"
 	 * "departements" est le nom de l'attribut dans la classe Lieu
 	 */
-	@OneToMany(mappedBy="departement",cascade = CascadeType.REMOVE)
-
+	@OneToMany(mappedBy="departement"/*,cascade = CascadeType.REMOVE*/)
 	private List<Lieu> lieux;
 	
 	

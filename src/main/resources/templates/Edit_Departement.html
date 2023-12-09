@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Layout}">
+
+<body class="d-flex flex-column h-100 bg-light">
+<main class="flex-shrink-0">
+
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container px-5">
+            <!-- Monument form-->
+            <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Rensegner les champs suivants pour mettre à jour le lieu :</h1>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+
+                        <form role="form" method="post" th:action="@{/departement/{dep}/update(dep=${departement.dep})}" th:object="${departement}" id="departementForm">
+
+                            <input type="hidden" th:field="*{dep}">
+
+
+                            <!-- nom -->
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="nomDep"
+                                        th:field="*{nomDep}"
+                                        placeholder="Entrez le nom"/>
+                                <label for="nomDep">Nom du Departement</label>
+                            </div>
+
+
+
+                            <!-- longitude -->
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="chefLieu"
+                                        th:field="*{chefLieu}"
+                                        placeholder="Entrez le chef lieu"/>
+                                <label for="chefLieu">chef lieu</label>
+                            </div>
+
+                            <!-- latitude -->
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="reg"
+                                        th:field="*{reg}"
+                                        placeholder="Entrez la region"/>
+                                <label for="reg">Région</label>
+                            </div>
+
+
+
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enreigistrer</button></div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

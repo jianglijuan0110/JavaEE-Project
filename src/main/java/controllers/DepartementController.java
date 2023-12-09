@@ -64,6 +64,18 @@ public class DepartementController {
 
 	}
 
+	@GetMapping("/departement/{dep}/edit")
+	public String editDepartement(@PathVariable("dep") String dep, Model model) {
+		Departement departement = departementService.getDepartementById(dep);
+		model.addAttribute("departement", departement);
+		return "Edit_Departement";
+	}
+
+	@PostMapping("/departement/{dep}/update")
+	public String updateDepartement(@PathVariable("dep") String dep, @ModelAttribute("departement") Departement departement) {
+		departementService.updateDepartement(departement,dep);
+		return "redirect:/departements";
+	}
 	@GetMapping("/departement/{dep}/delete")
 	public String deleteDepartement(@PathVariable("dep") String dep) {
 

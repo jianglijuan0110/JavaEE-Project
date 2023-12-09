@@ -10,18 +10,13 @@ import org.springframework.stereotype.Service;
 import models.Departement;
 import models.Lieu;
 import repositories.DepartementRepository;
-import repositories.LieuRepository;
 import services.DepartementService;
-
 
 @Service
 public class DepartementImpl implements DepartementService {
-
+	
 	@Autowired
 	private DepartementRepository departementRepository;
-
-	@Autowired
-	private LieuRepository lieuRepository;
 	
 	@Autowired
     private EntityManager entityManager;
@@ -87,6 +82,21 @@ public class DepartementImpl implements DepartementService {
 		entityManager.createNativeQuery(query).executeUpdate();
 	}
 
+	@Override
+	public void updateDepartement(Departement departementNew, String dep){
+
+		// Récupérer le departement existante à partir de la base de données
+		Departement departement = departementRepository.findById(dep).orElse(null);
+
+		// Mettre à jour les champs nécessaires
+		departement.setDep(departementNew.getDep());
+		departement.setNomDep(departementNew.getNomDep());
+		departement.setChefLieu(departementNew.getChefLieu());
+		departement.setReg(departementNew.getReg());
+
+		departementRepository.save(departement);
+
+	}
 	@Override
 	public void deleteDepartement(String dep){
 		departementRepository.deleteById(dep);
