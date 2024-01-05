@@ -1,14 +1,14 @@
 package services;
 
 import dto.UserRegistrationDto;
-import models.User;
+import models.UserEntity;
 
 public interface UserService {
 	
 	void save(UserRegistrationDto userRegist);
 	
-	User findByEmail(String email);
+	UserEntity findByEmail(String email);
 	
-	User findByUsername(String username);
+	UserEntity findByUsername(String username);
 
 }

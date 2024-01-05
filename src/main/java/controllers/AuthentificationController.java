@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import dto.UserRegistrationDto;
 import jakarta.validation.Valid;
-import models.User;
+import models.UserEntity;
 import services.UserService;
 
 @Controller
@@ -32,14 +32,14 @@ public class AuthentificationController {
 	public String register(@Valid @ModelAttribute("user") UserRegistrationDto user, 
 			BindingResult result, Model model) {
 		
-		User existingUserEmail = userService.findByEmail(user.getEmail());
+		UserEntity existingUserEmail = userService.findByEmail(user.getEmail());
 		if (existingUserEmail != null && existingUserEmail.getEmail() != null
 				&& !existingUserEmail.getEmail().isEmpty()) {
 			//result.reject("email", "Il existe déjà un utilisateur avec cet email ou username");
 			return "redirect:/register?fail";
 		}
 		
-		User existingUserUsername = userService.findByUsername(user.getUsername());
+		UserEntity existingUserUsername = userService.findByUsername(user.getUsername());
 		if (existingUserUsername != null && existingUserUsername.getUsername() != null
 				&& !existingUserUsername.getUsername().isEmpty()) {
 			//result.reject("username", "Il existe déjà un utilisateur avec cet email ou username");

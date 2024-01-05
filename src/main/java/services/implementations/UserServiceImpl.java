@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import dto.UserRegistrationDto;
 import models.Role;
-import models.User;
+import models.UserEntity;
 import repositories.RoleRepository;
 import repositories.UserRepository;
 import services.UserService;
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(UserRegistrationDto userRegist) {
 		
-		User user = new User();
+		UserEntity user = new UserEntity();
 		user.setUsername(userRegist.getUsername());
 		user.setEmail(userRegist.getEmail());
 		user.setPassword(userRegist.getPassword());
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByEmail(String email) {
+	public UserEntity findByEmail(String email) {
 		return userRepository.findByEmail(email)
 				.map(Collections::singletonList)
                 .orElse(Collections.emptyList())
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByUsername(String username) {// TODO Auto-generated method stub
+	public UserEntity findByUsername(String username) {// TODO Auto-generated method stub
 		return userRepository.findByUsername(username)
 				.map(Collections::singletonList)
                 .orElse(Collections.emptyList())
