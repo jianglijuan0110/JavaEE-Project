@@ -42,8 +42,8 @@ public class Lieu {
 	 * "chefLieu" est le nom de l'attribut dans la classe Departement
 	 */
 
-	@OneToOne(mappedBy = "chefLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Departement departementChefLieu;
+	/*@OneToOne(mappedBy = "chefLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Departement departementChefLieu;*/
 
 
 
