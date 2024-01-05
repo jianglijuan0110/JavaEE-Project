@@ -39,8 +39,15 @@ public class Lieu {
 	 * "false" sinon
 	 * "Transient" pour dire que la propriété ne doit pas être persisté en base de données
 	 */
-	@Transient
-	private boolean chefLieu;
+
+
+	/*@OneToOne(mappedBy = "chefLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Departement departementChefLieu;*/
+
+
+
+	//private boolean isChefLieu;
+
 	
 	
 	//CONSTRUCTEURS
