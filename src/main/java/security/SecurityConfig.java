@@ -34,6 +34,10 @@ public class SecurityConfig {
 				auth -> auth
 				.requestMatchers("/login").permitAll()
 				.requestMatchers("/register").permitAll()
+				.requestMatchers("/css/**").permitAll()
+				.requestMatchers("/js/**").permitAll()
+				.requestMatchers("/monuments/**").permitAll()
+				.requestMatchers("/monuments").permitAll()
 				.requestMatchers("/departement/new").hasRole("Admin")
 		)
 		.formLogin(
