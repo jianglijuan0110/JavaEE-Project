@@ -1,22 +1,17 @@
 package services.implementations;
 
 import java.util.List;
+import java.util.Optional;
 
-import models.Celebrite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import models.Lieu;
-import repositories.CelebriteRepository;
 import repositories.LieuRepository;
-import services.CelebriteService;
 import services.LieuService;
 
 
 @Service
 public class LieuImpl implements LieuService {
-
-	@Autowired
-	private LieuService lieuService;
 
 	@Autowired
 	private LieuRepository lieuRepository;
@@ -38,7 +33,7 @@ public class LieuImpl implements LieuService {
 
 	@Override
 	public Lieu getLieuById(String id) {
-		return lieuRepository.findById(id).get();
+		return lieuRepository.findById(id).orElse(null);
 	}
 
 
@@ -49,7 +44,8 @@ public class LieuImpl implements LieuService {
 	@Override
 	public void updateLieu(Lieu lieuNew, String codeInsee){
 		// Récupérer le lieu existante à partir de la base de données
-		Lieu lieu = lieuService.getLieuById(codeInsee);
+		Optional<Lieu> lieuOptional = lieuRepository.findById(codeInsee);
+		Lieu lieu = lieuOptional.orElse(null);
 
 		// Mettre à jour les champs nécessaires
 		lieu.setCodeInsee(lieuNew.getCodeInsee());

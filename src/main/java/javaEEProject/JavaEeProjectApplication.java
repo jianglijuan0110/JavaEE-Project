@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 		"repositories"
 })
 @SpringBootApplication(scanBasePackages= {
+		"security",
 		"controllers",
 		"services",
 		"services.implementations"
