@@ -75,13 +75,13 @@ public class MonumentImpl implements MonumentService {
 	}
 
 	@Override
-	public void deleteMonument(String geohash) {
+	public void deleteMonument(String geohash) { //LE LIEN N'EST PAS SUPPRIME DANS AssocieA
 		Monument monument = monumentRepository.findById(geohash).orElse(null);
 		   if (monument != null) {
-		      monument.getCelebrites().clear();
-		      monumentRepository.delete(monument);
+			   monument.getCelebrites().forEach(celebrite -> celebrite.getMonuments().remove(monument));
+			   monument.getCelebrites().clear();
+			   monumentRepository.delete(monument);
 		   }
-		//monumentRepository.deleteById(geohash);
 	}
 
 	@Override
@@ -114,6 +114,11 @@ public class MonumentImpl implements MonumentService {
 	    }
 
 	    return new ArrayList<>(monuments);
+	}
+
+	@Override
+	public List<Monument> searchMonuments(String query) {
+		return monumentRepository.searchMonuments(query);
 	}
 
 }

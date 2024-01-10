@@ -9,6 +9,11 @@
 
             <!-- Page Content-->
             <div layout:fragment="body" class="container px-5 my-5">
+            	<div>
+            		<form th:action="@{/monuments/search}" class="col-lg-11 col-xl-9 col-xxl-8">
+                		<input name="query" class="form-control mr-sm-2 mb-5" type="search" placeholder="Rechercher un monument" aria-label="Search">
+                	</form>
+            	</div>
                 <div class="text-center mb-5">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Liste des monuments</span></h1>
                 </div>
