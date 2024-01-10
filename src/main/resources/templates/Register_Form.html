@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{Layout}">
     
@@ -16,12 +17,12 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                         	<div th:if="${param.fail}" class="alert alert-success">
-                                	Le username ou l'email existe déjà !
+                                	Le nom d'utilisateur ou l'email existe déjà !
                             </div>
                             <div class="col-lg-8 col-xl-6">
 			                    <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
 			                        <div class="form-group">
-			                            <label>Username</label>
+			                            <label>Nom d'utilisateur</label>
 			                            <input
 			                                    type="text"
 			                                    class="form-control"
@@ -29,7 +30,7 @@
 			                                    th:field="*{username}">
 			                        </div>
 			                        <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>
-			                        <div class="form-group">
+			                        <div class="form-group" style="margin-top: 20px;">
 			                            <label>Email</label>
 			                            <input
 			                                    type="text"
@@ -38,8 +39,8 @@
 			                                    th:field="*{email}">
 			                        </div>
 			                        <p th:if="${#fields.hasErrors('email')}" class="text-danger"></p>
-			                        <div class="form-group">
-			                            <label>Password</label>
+			                        <div class="form-group" style="margin-top: 20px;">
+			                            <label>Mot de passe</label>
 			                            <input
 			                                    type="password"
 			                                    class="form-control"
@@ -47,8 +48,17 @@
 			                                    th:field="*{password}">
 			                        </div>
 			                        <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
-			                        <button th:href="@{/login}" type="submit" class="btn btn-black">Se connecter</button>
-			                        <button th:href="@{/register}" type="submit" class="btn btn-secondary">Créer un compte</button>
+			                        <div class="form-group" style="margin-top: 20px;">
+			                            <label>Choisir un rôle</label>
+			                            <select class="form-control" th:name="role">
+			                            	<option th:value="Voyagiste">Voyagiste</option>
+			                            	<option th:value="Touriste">Touriste</option>
+			                            </select>
+			                        </div>
+			                        <div style="margin-top: 20px; text-align: center;">
+			                        	<a th:href="@{/login}" type="submit" class="btn btn-black">Se connecter</a>
+			                        	<button th:href="@{/register}" type="submit" class="btn btn-secondary">Créer un compte</button>
+			                        </div>
 			                    </form>
                                 
                             </div>

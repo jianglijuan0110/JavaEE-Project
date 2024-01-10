@@ -40,7 +40,7 @@ public class Lieu {
 	 * "Transient" pour dire que la propriété ne doit pas être persisté en base de données
 	 */
 	@Transient
-	private boolean chefLieu;
+	private boolean isChefLieu;
 	
 	
 	//CONSTRUCTEURS
