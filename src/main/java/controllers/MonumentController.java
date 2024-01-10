@@ -129,28 +129,31 @@ public class MonumentController {
 	}
 
 	@GetMapping("/calculeD")
-	public String calculDistanceBetweenMonuments(Model model) {
+	public String calculDistanceBetweenMonuments(@RequestParam(name = "m1", required = false) String geohash1,
+												 @RequestParam(name = "m2", required = false) String geohash2,
+												 Model model) {
 		List<Monument> monuments = monumentService.getMonuments();
 		model.addAttribute("monuments", monuments);
+
+		if (geohash1 != null && geohash2 != null) {
+			Monument m1 = monumentService.getMonumentById(geohash1);
+			Monument m2 = monumentService.getMonumentById(geohash2);
+			double distance = 0;
+
+			if (!m1.equals(m2)) {
+				distance = monumentService.calculeDistance(m1, m2);
+			}
+
+			model.addAttribute("distance", distance);
+			model.addAttribute("m1", m1);
+			model.addAttribute("m2", m2);
+		}
 
 		// Retournez le nom de la vue à afficher
 		return "Calcul_distance_monuments";
 	}
 
-	@PostMapping("/savecalculeD")
-	public double savcalculDistanceBetweenMonuments(@RequestParam("m1") String geohash1,
-													@RequestParam("m2") String geohash2, Model model) {
-		Monument m1 = monumentService.getMonumentById(geohash1);
-		Monument m2 = monumentService.getMonumentById(geohash2);
-		double distance = 0;
 
-				if (!m1.equals(m2)) {
-					 distance = monumentService.calculeDistance(m1, m2);
-				}
-				model.addAttribute("distance",distance);
-				return distance;
-
-	}
 
 
 }
