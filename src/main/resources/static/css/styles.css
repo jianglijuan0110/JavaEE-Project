@@ -11732,3 +11732,17 @@ html {
     left: -2vw;
   }
 }
+
+/*ajout*/
+.carte path{
+    fill: rgba(218, 149, 149, 0.774);
+    stroke : white;
+    stroke-width: 1px;
+    transition: 0.7s;
+}
+
+.carte .is-active path{
+    fill: rgb(60, 145, 224);
+    transition: 0.7s;
+
+}

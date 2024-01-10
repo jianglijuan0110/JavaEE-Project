@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
     layout:decorate="~{Layout}">
 
     <body class="d-flex flex-column h-100 bg-light">
@@ -18,7 +19,7 @@
                         <section>
                         	<div class="d-flex align-items-center justify-content-between mb-4">
                         		<h2></h2>
-                                <a class="btn btn-primary px-4 py-3" th:href="@{/departement/new}">
+                                <a class="btn btn-primary px-4 py-3" th:href="@{/departement/new}" sec:authorize="hasRole('ROLE_Admin')">
                                     Ajouter un département
                                 </a>
                             </div>
@@ -33,11 +34,11 @@
                                         <div class="col-lg-8">
                                             <div>
                                                 <ul>
-                                                    <li th:text="${departement.reg}">Région</li>
+                                                    <li>Région : <span th:text="${departement.reg}"></span></li>
 
-                                                    <li th:text="${departement.chefLieu != null ? departement.chefLieu.nomCom : ''}">Chef-lieu</li>
+                                                    <li>Chef-lieu : <span th:text="${departement.chefLieu != null ? departement.chefLieu.nomCom : ''}"></span></li>
 
-                                                    <li th:text="${departement.dep}">Département</li>
+                                                    <li>Numéro de département : <span th:text="${departement.dep}"></span></li>
                                                 </ul>
                                             </div>
                                             <div style="float: right; display: flex; gap: 30px;" >

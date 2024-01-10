@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
     layout:decorate="~{Layout}">
     
     <body class="d-flex flex-column h-100 bg-light">
@@ -9,14 +10,14 @@
             <!-- Page Content-->
             <section layout:fragment="body" class="py-5">
                 <div class="container px-5">
-                    <!-- Register form-->
+                    <!-- Login form-->
                     <div class="bg-light rounded-4 py-5 px-4 px-md-5">
                         <div class="text-center mb-5">
                             <h1 class="fw-bolder">Connexion</h1>
                         </div>
                         <div class="row gx-5 justify-content-center">
                         	<div th:if="${param.error}" class="alert alert-success">
-                                	Username et / ou email invalide !
+                                	Nom d'utilisateur et / ou mot de passe invalide(s) !
                             </div>
                             <div th:if="${param.logout}" class="alert alert-success">
                             	Vous êtes déconnecté !
@@ -24,7 +25,7 @@
                             <div class="col-lg-8 col-xl-6">
 			                    <form method="post" role="form" th:action="@{/login}">
 			                        <div class="form-group">
-			                            <label>Username</label>
+			                            <label>Nom d'utilisateur</label>
 			                            <input
 			                                    type="text" 
 			                                    id="username" 
@@ -32,8 +33,8 @@
 			                                    class="form-control"
 			                                    placeholder="Username">
 			                        </div>
-			                        <div class="form-group">
-			                            <label>Password</label>
+			                        <div class="form-group" style="margin-top: 20px;">
+			                            <label>Mot de passe</label>
 			                            <input
 			                                    type="password" 
 			                                    id="password" 
@@ -41,8 +42,10 @@
 			                                    class="form-control"
 			                                    placeholder="Password">
 			                        </div>
-			                        <button th:href="@{/register}" type="submit" class="btn btn-black">Créer un compte ?</button>
-			                        <button value="log in" type="submit" class="btn btn-secondary">Se conneter</button>
+			                        <div style="margin-top: 20px; text-align: center;">
+			                        	<a th:href="@{/register}" type="submit" class="btn btn-black">Créer un compte ?</a>
+			                        	<button value="log in" type="submit" class="btn btn-secondary">Se conneter</button>
+			                        </div>
 			                    </form>
                                 
                             </div>

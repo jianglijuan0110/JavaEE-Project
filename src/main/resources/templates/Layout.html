@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
     <head>
         <meta charset="utf-8" />
@@ -19,8 +20,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)
-        <link href="css/styles.css" rel="stylesheet" /> -->
+        
+        <!-- Pour utiliser jquery-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- AJAX -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
     </head>
 
     <!-- Navigation-->
@@ -30,11 +35,24 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/login}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/search}">Chercher un monument</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/login}">Connexion</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/register}">S'inscrire</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Déconnexion</a></li>
+                
+                    <li class="nav-item"><a class="nav-link" th:href="@{/monuments}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/monument/searchLieu}">Rechercher un monument</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/departements}">Departements</a></li>
+                    
+                    <!-- Invisible quand l'utilisateur est connecté -->
+                    <li th:unless="${#authorization.expression('isAuthenticated()')}" class="nav-item"><a class="nav-link" th:href="@{/login}">Connexion</a></li>
+                    <li th:unless="${#authorization.expression('isAuthenticated()')}" class="nav-item"><a class="nav-link" th:href="@{/register}">S'inscrire</a></li>
+                    
+                    <!-- Visible quand l'utilisateur est connecté -->
+                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+			          <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown">Bienvenue</a>
+			          <ul  class="dropdown-menu dropdown-menu-end">
+			          	<li style="text-align: center;"><p sec:authentication="name">Utilisateur</p></li>
+			            <li style="text-align: center;"><p sec:authentication="principal.authorities">ROLE</p></li>
+			            <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+			          </ul>
+			        </li>
                 </ul>
             </div>
         </div>

@@ -23,15 +23,18 @@ public class Lieu {
 	 * Si l'on veut une clé étrangère dans la table Monument, on met "mappedBy"
 	 * "codeLieu" est le nom de cet attribut dans la classe Monument
 	 */
-	@OneToMany(mappedBy="codeLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	//@OneToMany(mappedBy="codeLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Monument> monuments;
 	
 	/*
 	 * "ManyToOne" pour dire "plusieurs lieux, un departement"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
-	@ManyToOne
-	@JoinColumn(name = "dep", referencedColumnName = "dep")
+	/*@ManyToOne
+	@JoinColumn(name = "dep", referencedColumnName = "dep")*/
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "dep")
 	private Departement departement;
 	
 	/*
@@ -40,13 +43,8 @@ public class Lieu {
 	 * "Transient" pour dire que la propriété ne doit pas être persisté en base de données
 	 */
 
-
-	/*@OneToOne(mappedBy = "chefLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Departement departementChefLieu;*/
-
-
-
-	//private boolean isChefLieu;
+	@Transient
+	private boolean isChefLieu = false;
 
 	
 	
@@ -121,9 +119,9 @@ public class Lieu {
 	
 	public boolean estChefLieu() {
         if(this.departement.getChefLieu().codeInsee == this.codeInsee) {
-        	return true;
+        	this.isChefLieu = true;
         }
-        return false;
+        return this.isChefLieu;
     }
 	
 }
