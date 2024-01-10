@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,8 @@ public class MonumentImpl implements MonumentService {
 	
 	@Autowired
 	private MonumentRepository monumentRepository;
-	
+	@Autowired
+	private EntityManager entityManager;
 	@Autowired
 	private LieuService lieuService;
 	
@@ -75,13 +78,16 @@ public class MonumentImpl implements MonumentService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteMonument(String geohash) {
+
 		Monument monument = monumentRepository.findById(geohash).orElse(null);
 		   if (monument != null) {
+			   disableForeignKeyChecks();
 		      monument.getCelebrites().clear();
 		      monumentRepository.delete(monument);
 		   }
-		//monumentRepository.deleteById(geohash);
+		enableForeignKeyChecks();
 	}
 
 	@Override
@@ -114,6 +120,33 @@ public class MonumentImpl implements MonumentService {
 	    }
 
 	    return new ArrayList<>(monuments);
+	}
+
+	@Transactional
+	public void disableForeignKeyChecks() {
+		String query = "SET foreign_key_checks = 0";
+		entityManager.createNativeQuery(query).executeUpdate();
+	}
+
+	@Transactional
+	public void enableForeignKeyChecks() {
+		String query = "SET foreign_key_checks = 1";
+		entityManager.createNativeQuery(query).executeUpdate();
+	}
+	@Override
+	public double calculeDistance(Monument m1, Monument m2){
+		final int R = 6371; // Rayon de la Terre en kilomètres
+
+		double dLat = Math.toRadians(m2.getLatitude() - m1.getLatitude());
+		double dLon = Math.toRadians(m2.getLongitude() - m1.getLongitude());
+
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.cos(Math.toRadians(m1.getLatitude())) * Math.cos(Math.toRadians(m2.getLatitude())) *
+						Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+		return R * c;
 	}
 
 }

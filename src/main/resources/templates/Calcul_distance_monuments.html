@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Layout}">
+
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+
+            <!-- Page Content-->
+            <section layout:fragment="body" class="py-5">
+                <div class="container px-5">
+                    <!-- Monument form-->
+                    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder">Calcule de distance entre monuments :</h1>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+
+                                <!-- Form for calculating distance -->
+                                <form th:action="@{/savecalculeD}" method="post">
+
+                                    <!-- Monument 1 -->
+                                    <div class="form-floating mb-3">
+                                        <select class="form-control" name="m1">
+                                            <option value="" selected>Sélectionner un monument</option>
+                                            <th:block th:each="monument : ${monuments}">
+                                                <option th:value="${monument.geohash}" th:text="${monument.nom}"></option>
+                                            </th:block>
+
+                                        </select>
+                                    </div>
+
+                                    <!-- Monument 2 -->
+                                    <div class="form-floating mb-3">
+                                        <select class="form-control" name="m2">
+                                            <option value="" selected>Sélectionner un autre monument</option>
+                                            <th:block th:each="monument : ${monuments}">
+                                                <option th:value="${monument.geohash}" th:text="${monument.nom}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+
+
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary px-4 py-3">Calculer la distance</button>
+                                </form>
+
+                                <!-- Display the results -->
+                                <div th:if="${distance != null}">
+                                    <p>Distance  : <span th:text="${distance}"></span> kilomètres</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

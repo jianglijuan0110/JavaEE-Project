@@ -51,6 +51,7 @@ public class DepartementImpl implements DepartementService {
 
 			Lieu chefLieu = new Lieu(codeInseeChefLieu, nomCom, longitude, latitude);
 			departement.setChefLieu(chefLieu);
+			departement.getChefLieu().estChefLieu();
 			chefLieu.setDepartement(departement);
 			return departementRepository.save(departement);
 
@@ -93,14 +94,15 @@ public class DepartementImpl implements DepartementService {
 		departement.setNomDep(departementNew.getNomDep());
 		departement.setChefLieu(departementNew.getChefLieu());
 		departement.setReg(departementNew.getReg());
-
 		departementRepository.save(departement);
 
 	}
 	@Override
+	@Transactional
 	public void deleteDepartement(String dep){
+		disableForeignKeyChecks();
 		departementRepository.deleteById(dep);
-
+		enableForeignKeyChecks();
 	}
 
 }

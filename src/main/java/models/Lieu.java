@@ -8,7 +8,6 @@ import java.util.*;
 public class Lieu {
 	
 	//ATTRIBUTS
-
 	@Id
 	private String codeInsee;
 	
@@ -34,18 +33,12 @@ public class Lieu {
 	@JoinColumn(name = "dep", referencedColumnName = "dep")
 	private Departement departement;
 	
-	/*
+	/**
 	 * "true" si le lieu est un chef-lieu
 	 * "false" sinon
 	 * "Transient" pour dire que la propriété ne doit pas être persisté en base de données
 	 */
-
-
-	/*@OneToOne(mappedBy = "chefLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Departement departementChefLieu;*/
-
-
-
+	//@Transient
 	//private boolean isChefLieu;
 
 	
@@ -118,7 +111,16 @@ public class Lieu {
 		this.departement = departement;
 	}
 	//---------
-	
+
+
+	/*public boolean isChefLieu() {
+		return isChefLieu;
+	}
+
+	public void setChefLieu(boolean chefLieu) {
+		isChefLieu = chefLieu;
+	}*/
+
 	public boolean estChefLieu() {
         if(this.departement.getChefLieu().codeInsee == this.codeInsee) {
         	return true;

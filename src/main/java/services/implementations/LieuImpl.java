@@ -3,6 +3,8 @@ package services.implementations;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import models.Lieu;
@@ -16,7 +18,8 @@ public class LieuImpl implements LieuService {
 	@Autowired
 	private LieuRepository lieuRepository;
 
-
+	@Autowired
+	private EntityManager entityManager;
 	public LieuImpl(LieuRepository lieuRepository) {
 		this.lieuRepository = lieuRepository;
 	}
@@ -57,11 +60,24 @@ public class LieuImpl implements LieuService {
 		lieuRepository.save(lieu);
 	}
 	@Override
+	@Transactional
 	public void deleteLieu(String codeInsee){
+		disableForeignKeyChecks();
 		lieuRepository.deleteById(codeInsee);
+		enableForeignKeyChecks();
 
 	}
 
+	@Transactional
+	public void disableForeignKeyChecks() {
+		String query = "SET foreign_key_checks = 0";
+		entityManager.createNativeQuery(query).executeUpdate();
+	}
 
+	@Transactional
+	public void enableForeignKeyChecks() {
+		String query = "SET foreign_key_checks = 1";
+		entityManager.createNativeQuery(query).executeUpdate();
+	}
 
 }
