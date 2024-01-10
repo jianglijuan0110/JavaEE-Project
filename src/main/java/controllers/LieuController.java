@@ -2,14 +2,12 @@ package controllers;
 
 import java.util.List;
 
-import models.Celebrite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import models.Lieu;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import services.CelebriteService;
 import services.DepartementService;
 import services.LieuService;
 
@@ -77,11 +75,14 @@ public class LieuController {
 	@GetMapping("/lieu/{codeInsee}/delete")
 	public String deleteLieu(@PathVariable("codeInsee") String codeInsee, RedirectAttributes redirectAttributes) {
 		String message = "";
-		if(!lieuService.getLieuById(codeInsee).getDepartement().getChefLieu().getCodeInsee().equals(codeInsee)){
+		/*if(!lieuService.getLieuById(codeInsee).getDepartement().getChefLieu().getCodeInsee().equals(codeInsee)){
 		lieuService.deleteLieu(codeInsee);
-		}
+		}*/
+		if(lieuService.getLieuById(codeInsee).estChefLieu() == false){
+			lieuService.deleteLieu(codeInsee);
+			}
 		else {
-			message = "interdit de supprimer un chef lieu";
+			message = "Vous ne pouvez supprimer un chef lieu !";
 		}
 		// Add the message to redirect attributes
 		redirectAttributes.addAttribute("message", message);

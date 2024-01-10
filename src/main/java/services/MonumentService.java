@@ -23,5 +23,7 @@ public interface MonumentService {
 	List<Monument> searchMonumentByLieu(String nomLieu);
 	
 	List<Monument> searchMonumentByDepartement(String nomDept);
+	
+	List<Monument> searchMonuments(String query);
 
 }

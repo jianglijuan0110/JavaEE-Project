@@ -33,7 +33,8 @@ public class Monument {
 	 * "ManyToOne" pour dire "plusieurs monuments, un lieu"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
-	@ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	//@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name="codeInsee")
 	private Lieu codeLieu;
 	

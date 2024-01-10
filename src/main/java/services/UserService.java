@@ -5,7 +5,7 @@ import models.UserEntity;
 
 public interface UserService {
 	
-	void save(UserRegistrationDto userRegist);
+	void save(UserRegistrationDto userRegist, String roleName);
 	
 	UserEntity findByEmail(String email);
 	
