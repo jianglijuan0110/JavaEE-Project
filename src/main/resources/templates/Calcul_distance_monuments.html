@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Layout}">
+
+<body class="d-flex flex-column h-100 bg-light">
+<main class="flex-shrink-0">
+
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container px-5">
+            <!-- Monument form-->
+            <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Calculer la distance entre :</h1>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+
+                        <!-- Form for calculating distance -->
+                        <form th:action="@{/calculeD}" method="get">
+
+                            <!-- Monument 1 -->
+                            <div class="form-floating mb-3">
+                                <select class="form-control" name="m1">
+                                    <option value="" selected>Sélectionner un monument</option>
+                                    <th:block th:each="monument : ${monuments}">
+                                        <option th:value="${monument.geohash}" th:text="${monument.nom}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+
+                            <!-- Monument 2 -->
+                            <div class="form-floating mb-3">
+                                <select class="form-control" name="m2">
+                                    <option value="" selected>Sélectionner un autre monument</option>
+                                    <th:block th:each="monument : ${monuments}">
+                                        <option th:value="${monument.geohash}" th:text="${monument.nom}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary px-4 py-3">Calculer la distance</button>
+                        </form> 
+                        
+                        <!-- Display the results -->
+                        <div style="margin-top: 20px;" th:if="${distance != null}">
+                            <p th:text="'Distance entre ' + ${m1.nom} + ' et ' + ${m2.nom} + ' : ' + ${distance} + ' kilomètres'"></p>
+                        </div>
+                        
+                        
+                        
+                        
+                        <form method="get" onsubmit="return calculerDistance()">
+						    <!-- Monument 1 -->
+						    <div class="form-floating mb-3">
+						        <select class="form-control" name="m1" id="m1">
+						            <option value="" selected>Sélectionner un monument</option>
+						            <th:block th:each="monument : ${monuments}">
+						                <option th:value="${monument.geohash}" 
+						                        th:text="${monument.nom}" 
+						                        th:attr="data-lat=${monument.latitude}, data-lng=${monument.longitude}"></option>
+						            </th:block>
+						        </select>
+						    </div>
+						
+						    <!-- Monument 2 -->
+						    <div class="form-floating mb-3">
+						        <select class="form-control" name="m2" id="m2">
+						            <option value="" selected>Sélectionner un autre monument</option>
+						            <th:block th:each="monument : ${monuments}">
+						                <option th:value="${monument.geohash}" 
+						                        th:text="${monument.nom}" 
+						                        th:attr="data-lat=${monument.latitude}, data-lng=${monument.longitude}"></option>
+						            </th:block>
+						        </select>
+						    </div>
+						
+						    <!-- Hidden fields for coordinates -->
+						    <input type="hidden" id="lat1" name="lat1" />
+						    <input type="hidden" id="lng1" name="lng1" />
+						    <input type="hidden" id="lat2" name="lat2" />
+						    <input type="hidden" id="lng2" name="lng2" />
+						
+						    <!-- Submit button -->
+						    <button type="submit" class="btn btn-primary px-4 py-3">Calculer la distance</button>
+						
+						    <!-- Map container -->
+						    <div id="map-container" style="height: 400px; width: 100%; margin-top: 20px;"></div>
+						</form>
+                        
+                        <!--  S<div class="bg-light rounded-4 py-5 px-4 px-md-5" style="display: flex; justify-content: center; align-items: center;">
+			                <div id="map" style="width: 80%; height: 400px;"></div>
+			                <div id="output"></div>
+		                </div> -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

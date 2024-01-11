@@ -23,18 +23,15 @@ public class Lieu {
 	 * Si l'on veut une clé étrangère dans la table Monument, on met "mappedBy"
 	 * "codeLieu" est le nom de cet attribut dans la classe Monument
 	 */
-	//@OneToMany(mappedBy="codeLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	@OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="codeLieu",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Monument> monuments;
 	
 	/*
 	 * "ManyToOne" pour dire "plusieurs lieux, un departement"
 	 * "JoinColumn" specifie la colonne de jointure dans la BD
 	 */
-	/*@ManyToOne
-	@JoinColumn(name = "dep", referencedColumnName = "dep")*/
-	@ManyToOne(cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "dep")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "dep", referencedColumnName = "dep")
 	private Departement departement;
 	
 	/*

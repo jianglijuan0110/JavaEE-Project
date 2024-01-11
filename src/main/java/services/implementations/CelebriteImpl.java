@@ -41,13 +41,15 @@ public class CelebriteImpl implements CelebriteService {
 	}
 
 	@Override
-	public Celebrite saveCelebrite(String monumentId, Celebrite celebrite) {
-		Monument monument = monumentService.getMonumentById(monumentId);
+	public void saveCelebrite(String monumentId, Celebrite celebrite) {
+		if (celebrite != null) {
+			Monument monument = monumentService.getMonumentById(monumentId);
 
-        monument.getCelebrites().add(celebrite);
-        celebrite.getMonuments().add(monument);
-        
-		return celebriteRepository.save(celebrite);
+	        monument.getCelebrites().add(celebrite);
+	        celebrite.getMonuments().add(monument);
+	        
+			celebriteRepository.save(celebrite);
+		}
 	}
 	
 	@Override

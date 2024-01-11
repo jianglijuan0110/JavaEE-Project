@@ -11,6 +11,7 @@ import models.Departement;
 import models.Lieu;
 import models.Monument;
 import repositories.DepartementRepository;
+import repositories.LieuRepository;
 import services.DepartementService;
 
 @Service
@@ -20,10 +21,14 @@ public class DepartementImpl implements DepartementService {
 	private DepartementRepository departementRepository;
 	
 	@Autowired
+	private LieuRepository lieuRepository;
+	
+	@Autowired
     private EntityManager entityManager;
 
-	public DepartementImpl(DepartementRepository departementRepository) {
+	public DepartementImpl(DepartementRepository departementRepository, LieuRepository lieuRepository) {
 		this.departementRepository = departementRepository;
+		this.lieuRepository = lieuRepository;
 	}
 
 	@Override
@@ -44,16 +49,20 @@ public class DepartementImpl implements DepartementService {
 
 	@Override
 	@Transactional
-	public Departement saveDepartement(Departement departement, String codeInseeChefLieu, String nomCom, double longitude, double latitude ) {
+	public void saveDepartement(Departement departement, String codeInseeChefLieu, String nomCom, double longitude, double latitude ) {
 
 		try {
 			// Disable foreign key checks for Lieu
 			disableForeignKeyChecks();
 
 			Lieu chefLieu = new Lieu(codeInseeChefLieu, nomCom, longitude, latitude);
+			lieuRepository.save(chefLieu);
+			
 			departement.setChefLieu(chefLieu);
+			departementRepository.save(departement);
+			
 			chefLieu.setDepartement(departement);
-			return departementRepository.save(departement);
+			lieuRepository.save(chefLieu);
 
 		} catch (DataIntegrityViolationException e) {
 			// Handle specific data integrity violation
