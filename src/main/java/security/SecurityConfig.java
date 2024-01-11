@@ -35,7 +35,6 @@ public class SecurityConfig {
 		http
 		.authorizeHttpRequests(
 				auth -> auth
-				.requestMatchers("/departement/new").hasRole("Admin")
 				.anyRequest().permitAll()
 		)
 		.formLogin(

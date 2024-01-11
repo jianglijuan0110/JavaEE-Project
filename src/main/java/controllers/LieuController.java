@@ -55,7 +55,7 @@ public class LieuController {
 		lieuService.saveLieu(lieu);
 
 		// Redirect to the form à
-		return "redirect:/lieux";
+		return "redirect:/monument/new";
 	}
 
 	@GetMapping("/lieu/{codeInsee}/edit")

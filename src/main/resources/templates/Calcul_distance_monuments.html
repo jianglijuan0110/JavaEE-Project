@@ -17,10 +17,10 @@
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
 
-                        <!-- Form for calculating distance -->
+                        <!-- Form for calculating distance
                         <form th:action="@{/calculeD}" method="get">
 
-                            <!-- Monument 1 -->
+                            <!-- Monument 1 
                             <div class="form-floating mb-3">
                                 <select class="form-control" name="m1">
                                     <option value="" selected>Sélectionner un monument</option>
@@ -30,7 +30,7 @@
                                 </select>
                             </div>
 
-                            <!-- Monument 2 -->
+                            <!-- Monument 2 
                             <div class="form-floating mb-3">
                                 <select class="form-control" name="m2">
                                     <option value="" selected>Sélectionner un autre monument</option>
@@ -40,14 +40,11 @@
                                 </select>
                             </div>
 
-                            <!-- Submit button -->
+                            <!-- Submit button 
                             <button type="submit" class="btn btn-primary px-4 py-3">Calculer la distance</button>
-                        </form> 
+                        </form> -->
                         
-                        <!-- Display the results -->
-                        <div style="margin-top: 20px;" th:if="${distance != null}">
-                            <p th:text="'Distance entre ' + ${m1.nom} + ' et ' + ${m2.nom} + ' : ' + ${distance} + ' kilomètres'"></p>
-                        </div>
+                        
                         
                         
                         
@@ -88,13 +85,15 @@
 						
 						    <!-- Map container -->
 						    <div id="map-container" style="height: 400px; width: 100%; margin-top: 20px;"></div>
+						    
+						    <!-- Display the results -->
+	                        <div id="display-result" style="margin-top: 20px;">
+	                            <!--<p th:text="'Distance entre ' + ${m1.nom} + ' et ' + ${m2.nom} + ' : ' + ${distance} + ' kilomètres'"></p>-->
+	                        </div>
+						    
 						</form>
                         
-                        <!--  S<div class="bg-light rounded-4 py-5 px-4 px-md-5" style="display: flex; justify-content: center; align-items: center;">
-			                <div id="map" style="width: 80%; height: 400px;"></div>
-			                <div id="output"></div>
-		                </div> -->
-
+                        
                     </div>
                 </div>
             </div>

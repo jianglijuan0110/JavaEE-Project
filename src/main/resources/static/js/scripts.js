@@ -146,7 +146,11 @@ function initMap(lat1, lng1, lat2, lng2) {
     if (lat1 && lng1 && lat2 && lng2) {
         var distance = calculDistance(lat1, lng1, lat2, lng2);
         console.log('Distance entre les deux monuments : ' + distance + ' km');
+        // Mettre à jour la div "display result"
+        var displayResultDiv = document.getElementById("display-result");
+        displayResultDiv.innerHTML = '<p>Distance entre Monument 1 et Monument 2 : ' + distance + ' kilomètres</p>';
     }
+
 }
 
 // Fonction de calcul de distance
