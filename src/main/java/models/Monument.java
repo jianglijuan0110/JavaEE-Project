@@ -10,12 +10,6 @@ import org.hibernate.annotations.GenericGenerator;
 public class Monument {
 	
 	//ATTRIBUTS
-	
-	/*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demo_sql")
-	@GenericGenerator(
-			name = "demo_sql", 
-			type = "models.MonumentIdGenerator"
-	)*/
 	@Id
 	private String geohash;
 	

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dto.UserRegistrationDto;
@@ -24,13 +24,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	private PasswordEncoder passwordEncoder;
+	//private PasswordEncoder passwordEncoder;
 
-	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository/*, PasswordEncoder passwordEncoder*/) {
 		super();
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
-		this.passwordEncoder = passwordEncoder;
+		//this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -39,7 +39,8 @@ public class UserServiceImpl implements UserService {
 		UserEntity user = new UserEntity();
 		user.setUsername(userRegist.getUsername());
 		user.setEmail(userRegist.getEmail());
-		user.setPassword(passwordEncoder.encode(userRegist.getPassword()));
+		//user.setPassword(passwordEncoder.encode(userRegist.getPassword()));
+		user.setPassword(userRegist.getPassword());
 		
 		List<Role> role = roleRepository.findByName(roleName)
 				.map(Collections::singletonList)

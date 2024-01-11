@@ -28,4 +28,7 @@ public interface MonumentService {
 	
 	List<Monument> searchMonuments(String query);
 
+	double calculeDistance(Monument m1, Monument m2);
+
+
 }
