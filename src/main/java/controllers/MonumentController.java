@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import models.Monument;
@@ -126,6 +129,15 @@ public class MonumentController {
 		model.addAttribute("monuments", monuments);
 		
 		return "Search_MonumentByDept";
+	}
+	
+	@GetMapping("/monuments/search")
+	public String searchMonument(@RequestParam(value="query") String query, Model model) {
+		
+		List<Monument> monuments = monumentService.searchMonuments(query);
+		model.addAttribute("monuments", monuments);
+		
+		return "List_Monuments";
 	}
 
 	@GetMapping("/calculeD")

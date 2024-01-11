@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
     layout:decorate="~{Layout}">
     
     <body class="d-flex flex-column h-100 bg-light">
@@ -8,6 +9,11 @@
 
             <!-- Page Content-->
             <div layout:fragment="body" class="container px-5 my-5">
+            	<div>
+            		<form th:action="@{/monuments/search}" class="col-lg-11 col-xl-9 col-xxl-8">
+                		<input name="query" class="form-control mr-sm-2 mb-5" type="search" placeholder="Rechercher un monument" aria-label="Search">
+                	</form>
+            	</div>
                 <div class="text-center mb-5">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Liste des monuments</span></h1>
                 </div>
@@ -16,6 +22,9 @@
 
                         <!-- Section Monument -->
                         <section>
+                        	<div th:if="${param.success}" class="alert alert-success">
+                				Votre compte a bien été créé ! Vous pouvez maintenant vous connecter !
+            				</div>
                         	<div class="d-flex align-items-center justify-content-between mb-4">
                         		<h2></h2>
                                 <a class="btn btn-primary px-4 py-3" th:href="@{/monument/new}">
@@ -35,10 +44,10 @@
                                         <div class="col-lg-8">
                                             <div>
                                                 <ul>
-                                                    <li th:text="${monument.typeM}">Type de monument</li>
-                                                    <li th:text="${monument.proprietaire}">Proprietaire</li>
-                                                    <li th:text="${monument.longitude}">Longitude</li>
-                                                    <li th:text="${monument.latitude}">Latitude</li>
+                                                    <li>Type de monument : <span th:text="${monument.typeM}"></span></li>
+                                                    <li>Proprietaire : <span th:text="${monument.proprietaire}"></span></li>
+                                                    <li>Longitude : <span th:text="${monument.longitude}"></span></li>
+                                                    <li>Latitude : <span th:text="${monument.latitude}"></span></li>
                                                 </ul>
                                             </div>
                                             <div style="float: right; display: flex; gap: 30px;" >

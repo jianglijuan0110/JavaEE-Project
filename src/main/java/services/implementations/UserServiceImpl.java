@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void save(UserRegistrationDto userRegist) {
+	public void save(UserRegistrationDto userRegist, String roleName) {
 		
 		UserEntity user = new UserEntity();
 		user.setUsername(userRegist.getUsername());
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 		//user.setPassword(passwordEncoder.encode(userRegist.getPassword()));
 		user.setPassword(userRegist.getPassword());
 		
-		List<Role> role = roleRepository.findByName("Admin")
+		List<Role> role = roleRepository.findByName(roleName)
 				.map(Collections::singletonList)
                 .orElse(Collections.emptyList());
 		
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserEntity findByUsername(String username) {// TODO Auto-generated method stub
+	public UserEntity findByUsername(String username) {
 		return userRepository.findByUsername(username)
 				.map(Collections::singletonList)
                 .orElse(Collections.emptyList())

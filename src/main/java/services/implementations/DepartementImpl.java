@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import models.Departement;
 import models.Lieu;
+import models.Monument;
 import repositories.DepartementRepository;
 import services.DepartementService;
 
@@ -100,9 +101,15 @@ public class DepartementImpl implements DepartementService {
 	@Override
 	@Transactional
 	public void deleteDepartement(String dep){
-		disableForeignKeyChecks();
+		List<Lieu> lieux = departementRepository.findById(dep).orElse(null).getLieux();
+		if (lieux != null) { 
+			for (Lieu l : lieux) {
+				l.getMonuments().forEach(m -> m.getCelebrites()
+						.forEach(celebrite -> celebrite.getMonuments().remove(m)));
+			}
+		}
+		
 		departementRepository.deleteById(dep);
-		enableForeignKeyChecks();
 	}
 
 }

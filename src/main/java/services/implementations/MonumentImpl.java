@@ -78,16 +78,15 @@ public class MonumentImpl implements MonumentService {
 	}
 
 	@Override
-	@Transactional
-	public void deleteMonument(String geohash) {
 
+	public void deleteMonument(String geohash) { //LE LIEN N'EST PAS SUPPRIME DANS AssocieA
 		Monument monument = monumentRepository.findById(geohash).orElse(null);
 		   if (monument != null) {
-			   disableForeignKeyChecks();
-		      monument.getCelebrites().clear();
-		      monumentRepository.delete(monument);
+			   monument.getCelebrites().forEach(celebrite -> celebrite.getMonuments().remove(monument));
+			   monument.getCelebrites().clear();
+			   monumentRepository.delete(monument);
 		   }
-		enableForeignKeyChecks();
+
 	}
 
 	@Override
@@ -122,17 +121,7 @@ public class MonumentImpl implements MonumentService {
 	    return new ArrayList<>(monuments);
 	}
 
-	@Transactional
-	public void disableForeignKeyChecks() {
-		String query = "SET foreign_key_checks = 0";
-		entityManager.createNativeQuery(query).executeUpdate();
-	}
 
-	@Transactional
-	public void enableForeignKeyChecks() {
-		String query = "SET foreign_key_checks = 1";
-		entityManager.createNativeQuery(query).executeUpdate();
-	}
 	@Override
 	public double calculeDistance(Monument m1, Monument m2){
 		final int R = 6371; // Rayon de la Terre en kilomètres
@@ -147,6 +136,12 @@ public class MonumentImpl implements MonumentService {
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
 		return R * c;
+	}
+
+	@Override
+	public List<Monument> searchMonuments(String query) {
+		return monumentRepository.searchMonuments(query);
+
 	}
 
 }
