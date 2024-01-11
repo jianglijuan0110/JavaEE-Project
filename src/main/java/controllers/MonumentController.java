@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import models.Celebrite;
 import models.Monument;
 import services.DepartementService;
 import services.LieuService;
@@ -139,6 +140,46 @@ public class MonumentController {
 		
 		return "List_Monuments";
 	}
+	
+	//---------CALCUL DE DISTANCE
+	
+	@GetMapping("/calculeD")
+	public String calculDistanceBetweenMonuments(@RequestParam(name = "m1", required = false) String geohash1,
+												 @RequestParam(name = "m2", required = false) String geohash2,
+												 Model model) {
+		List<Monument> monuments = monumentService.getMonuments();
+		model.addAttribute("monuments", monuments);
+
+		if (geohash1 != null && geohash2 != null) {
+			Monument m1 = monumentService.getMonumentById(geohash1);
+			Monument m2 = monumentService.getMonumentById(geohash2);
+			double distance = 0;
+
+			if (!m1.equals(m2)) {
+				distance = monumentService.calculeDistance(m1, m2);
+			}
+
+			model.addAttribute("distance", distance);
+			model.addAttribute("m1", m1);
+			model.addAttribute("m2", m2);
+		}
+		
+		return "Calcul_distance_monuments";
+	}
+	
+	@GetMapping("/monument/{numMonum}/details")
+    public String viewMonumentDetails(@PathVariable("numMonum") String numMonum, Model model, HttpSession session) {
+        Monument monument = monumentService.getMonumentById(numMonum);
+        List<Celebrite> celebrites = monument.getCelebrites();
+
+        model.addAttribute("monument", monument);
+        model.addAttribute("celebrites", celebrites);
+        
+        // Ajouter l'ID du monument à la session
+	    session.setAttribute("monumentId", numMonum);
+
+        return "monumentDetails";
+    }
 
 	@GetMapping("/calculeD")
 	public String calculDistanceBetweenMonuments(@RequestParam(name = "m1", required = false) String geohash1,

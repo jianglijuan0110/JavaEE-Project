@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import models.Lieu;
 import models.Monument;
 import repositories.LieuRepository;
+import repositories.MonumentRepository;
 import services.LieuService;
 
 
@@ -19,9 +20,13 @@ public class LieuImpl implements LieuService {
 
 	@Autowired
 	private LieuRepository lieuRepository;
+	
+	@Autowired
+	private MonumentRepository monumentRepository;
 
-	public LieuImpl(LieuRepository lieuRepository) {
+	public LieuImpl(LieuRepository lieuRepository, MonumentRepository monumentRepository) {
 		this.lieuRepository = lieuRepository;
+		this.monumentRepository = monumentRepository;
 	}
 
 	@Override
@@ -68,7 +73,13 @@ public class LieuImpl implements LieuService {
 		List<Monument> monuments = lieuRepository.findById(codeInsee).orElse(null).getMonuments();
 		if (monuments != null) {
 			for (Monument m : monuments) {
-				m.setCodeInsee(null);
+
+				/*m.getCelebrites().forEach(celebrite -> celebrite.getMonuments().remove(m));
+				m.getCelebrites().clear();
+				monumentRepository.delete(m);*/
+				m.setCodeLieu(null);
+			}
+
 		}
 		
 

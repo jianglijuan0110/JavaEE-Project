@@ -17,185 +17,166 @@
     }
 }*/
 
-const map = document.getElementById("carte");
-const regions = document.getElementById("valeurs");
-const paths = document.querySelectorAll(".carte a");
-const links = document.querySelectorAll(".valeurs li a");
-/***************************************************PARTIE SURVOLE **********************************************/
 
+////////////////////////////////////////////////////////////////////////
 
-//fonction  qui se charge de surligné les listes quand on survole les regions
-function addActiveClassReg(id_region,id_gisement){
-    document.querySelectorAll('.is-active').forEach((element)=>{
-        element.classList.remove('is-active');
-    }) //avant d'addibuer la class is-active a un element on va d'abord l'enelever pour tout le monde pour ne pas avoir plusieurs element selectionnés a la fois
+/*function initMap() {
+	var mylatlng = {
+	    lat: 46.232192999999995, 
+	    lng: 2.209666999999996
+	};
 
-    if( id_region !== undefined){
-        document.querySelector(".carte #region-" + id_region).classList.add('is-active') ;//selectionnre les elts avec id=region-A
-        document.querySelector(".valeurs li #Gisement-" + id_gisement).classList.add('is-active'); ////selectionnre les elts avec class=Gisement-B
-    }
-}
+	var mapOptions = {
+	    center: mylatlng,
+	    zoom: 7,
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
 
-//fonction  qui se charge de surligné les regions quand on survole les listes
-function addActiveClassLien(id_valeur){
-    document.querySelectorAll('.is-active').forEach((element)=>{
-        element.classList.remove('is-active');
-    }) //avant d'addibuer la class is-active a un element on va d'abord l'enelever pour tout le monde pour ne pas avoir plusieurs element selectionnés a la fois
+    //CREER LA MAP
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions)
 
-    if( id_valeur !== undefined){
-        let regionsAssociées = document.querySelectorAll(".carte .GisReg-" + id_valeur);////selectionnre les elts avec class="GisReg-B"
-        regionsAssociées.forEach((region)=>{
-            region.classList.add('is-active') ;//pour chaque elt avec class=Gis-Reg-B ajouter class=is-active
-        })
-        //document.querySelectorAll(".carte .GisReg-" + id_valeur).classList.add('is-active') ;
-        document.querySelector(".valeurs li #Gisement-" + id_valeur).classList.add('is-active'); //
-    }
-}
+    //DIRECTION
+    var directionService = new google.maps.DirectionsService()
 
-///survole des regions
-paths.forEach((path)=>{
-    path.addEventListener('mouseenter' ,function(e){
-        let id_region = this.id.replace('region-','');//de base recupere region-A mais avec replace on aura seulement A
-        let id_gisement = this.classList.value.replace('GisReg-','');//recuperer val des Gis-Reg pour faire le regroupemnt
-        //console.log(id_region , id_gisement)
-        addActiveClassReg(id_region,id_gisement);
-    } )
-})
+    //DIRECTION RENDER
+    var directionsDisplay = new google.maps.DirectionsRenderrer()
 
-//survole des liens
-links.forEach((link)=>{
-    link.addEventListener('mouseenter' ,function(e){
-        let id_valeur = this.id.replace('Gisement-','');//de base recupere lien-A mais avec replace on aura seulement A
-        addActiveClassLien(id_valeur);
-    } )
-})
+    //
+    directionsDisplay.setMap(map)
 
-//quitter le survole quand on quitte la map
-map.addEventListener('mouseleave',function(e){
-    //console.log('you left map')
-    addActiveClassReg();
-})
+    function calculRoute(){
+        var request = {
+            origin: document.getElementById("from").value,
+            destination: document.getElementById("to").value,
+            travelMode: google.maps.TravelMode.DRIVVING, //WALKING
+            unitSystem: google.maps.UnitSystem.IMPERIAL
+        }
 
-//quitter le survole quand on quitte la la liste des regions
-regions.addEventListener('mouseleave',function(e){
-    //console.log('you left map')
-    addActiveClassLien();
-})
+        directionService.route(request, (result, status) => {
+            if (status == google.maps.DirectionsStatus.OK){
+                const output = document.querySelector('#output')
+                output.innerHTML = "<div class='alert-info'> FRrom: " 
+                + document.getElementById("from").value 
+                + ".<br/>To: " 
+                + document.getElementById("to").value 
+                + ".<br/>Driving distance: " 
+                + result.routes[0].legs[0].distance.text 
+                + ".<br/>Durée: " 
+                + result.routes[0].legs[0].duration.text 
+                + ".</div>";
 
-
-/******************************************PARTIE CLICK ************************************************************/
-const infosbox = document.querySelector('.informations')
-paths.forEach((path)=>{
-    path.addEventListener('click',function(){
-        let id_region = this.id.replace('region-','');
-        console.log(id_region)
-        const region = RegionInfos.find((elements) => elements.id === id_region) ;
-        /*alert('nom: '+ region.nom+ ' gisement: '+ region.gisement);*/
-        //effacer le contenue de infoBox avant de ecrire a nuveau
-        infosbox.innerHTML = ""
-
-        const Title = document.createElement("h4");
-        TitleTxt = document.createTextNode("Résultat");
-        Title.appendChild(TitleTxt);
-
-        const nomVille = document.createElement("p")
-        nomVilleTxt = document.createTextNode("Nom de la région "+ region.nom)
-        nomVille.appendChild(nomVilleTxt);
-
-        const ValVille = document.createElement("p")
-        ValVilleTxt = document.createTextNode("Valeur du gisement "+ region.gisement)
-        ValVille.appendChild(ValVilleTxt);
-
-        infosbox.appendChild(Title)
-        infosbox.appendChild(nomVille)
-        infosbox.appendChild(ValVille)
-
-
-
-        /*
-        console.log(region)
-        const emp = [];
-        emp.push(region);
-
-        $.ajax({
-            url: "readJson.php",
-            method: "post",
-            data: {tab: JSON.stringify(emp)},
-            success: function(res){
-                console.log(res);
+                //display route
+                directionsDisplay.setDirections(result);
+            } else {
+                directionsDisplay.setDirections({routes: []});
+                map.setCenter(mylatlng);
+                output.innerHTML = "<div class='alert-danger'> Nous ne pouvons trouver la distance. </div>";
             }
-        }) */
+        });
+    }
 
+    //
+    var options = {
+        types: ['(cities)']
+    }
 
-    })
-})
+    var input1 = document.getElementById("from");
+    var autoComplete1 = new google.maps.places.AutoComplete(input1, options)
 
+    var input2 = document.getElementById("to");
+    var autoComplete2 = new google.maps.places.AutoComplete(input2, options)
+}*/
 
+function calculerDistance() {
+    // Obtenir les valeurs sélectionnées dans les menus déroulants
+    var m1Select = document.getElementById("m1");
+    var m2Select = document.getElementById("m2");
 
-const RegionInfos=[
-    {
-        nom : "Grand Est",
-        gisement: '4800',
-        id : "A"
-    },
-    {
-        nom : "Nouvelle-Aquitaine",
-        gisement:1600,
-        id : "B"
-    },
-    {
-        nom : "Auvergne-Rhône-Alpes",
-        gisement:1500,
-        id : "C"
-    },
-    {
-        nom : "Bourgogne-Franche-Comté",
-        gisement:1450,
-        id : "D"
-    },
-    {
-        nom : "Bretagne",
-        gisement:1450,
-        id : "E"
-    },
-    {
-        nom : "Centre-Val de Loire",
-        gisement:1450,
-        id :"F"
-    },
-    {
-        nom : "Corse",
-        gisement:1900,
-        id : "G"
-    },
-    {
-        nom : "Île-de-France",
-        gisement:1900,
-        id : "H"
-    },
-    {
-        nom : "Occitanie",
-        gisement:1450,
-        id : "I"
-    },
-    {
-        nom : "Hauts-de-France",
-        gisement:1250,
-        id : "J"
-    },
-    {
-        nom : "Normandie",
-        gisement:1750,
-        id : "K"
-    },
-    {
-        nom : "Pays de la Loire",
-        gisement:1200,
-        id :"L"
-    },
-    {
-        nom : "Provence-Alpes-Côte d'Azur",
-        gisement: 1900,
-        id : "M"
-    },
-]
+    var m1Option = m1Select.options[m1Select.selectedIndex];
+    var m2Option = m2Select.options[m2Select.selectedIndex];
+
+    // Extraire les coordonnées des attributs personnalisés
+    var lat1 = parseFloat(m1Option.getAttribute("data-lat"));
+    var lng1 = parseFloat(m1Option.getAttribute("data-lng"));
+    var lat2 = parseFloat(m2Option.getAttribute("data-lat"));
+    var lng2 = parseFloat(m2Option.getAttribute("data-lng"));
+
+    // Remplir les champs de coordonnées cachés
+    document.getElementById("lat1").value = lat1;
+    document.getElementById("lng1").value = lng1;
+    document.getElementById("lat2").value = lat2;
+    document.getElementById("lng2").value = lng2;
+
+    // Afficher la carte avec les deux points
+    initMap(lat1, lng1, lat2, lng2);
+
+    // Empêcher le formulaire de se soumettre normalement
+    return false;
+}
+
+function initMap(lat1, lng1, lat2, lng2) {
+    // Utiliser les coordonnées du centre par défaut si non définies
+    var centerLat = lat1 && lat2 ? (lat1 + lat2) / 2 : 46.232192999999995;
+    var centerLng = lng1 && lng2 ? (lng1 + lng2) / 2 : 2.209666999999996;
+
+    // Créer la carte avec les deux points
+    var map = new google.maps.Map(document.getElementById("map-container"), {
+        center: { lat: centerLat, lng: centerLng },
+        zoom: 8
+    });
+
+    // Ajouter des marqueurs pour les deux points
+    if (lat1 && lng1) {
+        var marker1 = new google.maps.Marker({
+            position: { lat: lat1, lng: lng1 },
+            map: map,
+            title: 'Monument 1'
+        });
+    }
+
+    if (lat2 && lng2) {
+        var marker2 = new google.maps.Marker({
+            position: { lat: lat2, lng: lng2 },
+            map: map,
+            title: 'Monument 2'
+        });
+    }
+
+    // Calculer et afficher la distance entre les deux points (utilisez votre fonction de calcul de distance)
+    if (lat1 && lng1 && lat2 && lng2) {
+        var distance = calculDistance(lat1, lng1, lat2, lng2);
+        console.log('Distance entre les deux monuments : ' + distance + ' km');
+    }
+}
+
+// Fonction de calcul de distance
+function calculDistance(lat1, lng1, lat2, lng2) {
+    // Convertir les degrés en radians
+    lat1 = degresEnRadians(lat1);
+    lng1 = degresEnRadians(lng1);
+    lat2 = degresEnRadians(lat2);
+    lng2 = degresEnRadians(lng2);
+
+    // Différences de coordonnées
+    var dLat = lat2 - lat1;
+    var dLng = lng2 - lng1;
+
+    // Formule Haversine
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1) * Math.cos(lat2) *
+            Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    // Rayon de la Terre en kilomètres (approximatif)
+    var rayonTerre = 6371;
+
+    // Distance en kilomètres
+    var distance = rayonTerre * c;
+
+    return distance;
+}
+
+// Fonction utilitaire pour convertir les degrés en radians
+function degresEnRadians(degrees) {
+    return degrees * Math.PI / 180;
+}
