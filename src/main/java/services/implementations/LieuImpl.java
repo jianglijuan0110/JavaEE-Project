@@ -3,6 +3,8 @@ package services.implementations;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,20 +67,20 @@ public class LieuImpl implements LieuService {
 	}
 	
 	@Override
+	@Transactional
 	public void deleteLieu(String codeInsee){
 		
 		List<Monument> monuments = lieuRepository.findById(codeInsee).orElse(null).getMonuments();
 		if (monuments != null) {
 			for (Monument m : monuments) {
+
 				/*m.getCelebrites().forEach(celebrite -> celebrite.getMonuments().remove(m));
 				m.getCelebrites().clear();
 				monumentRepository.delete(m);*/
 				m.setCodeLieu(null);
 			}
+
 		}
 		
-		lieuRepository.deleteById(codeInsee);
-
-	}
 
 }

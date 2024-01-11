@@ -8,7 +8,6 @@ import java.util.*;
 public class Lieu {
 	
 	//ATTRIBUTS
-
 	@Id
 	private String codeInsee;
 	
@@ -34,16 +33,14 @@ public class Lieu {
 	@JoinColumn(name = "dep", referencedColumnName = "dep")
 	private Departement departement;
 	
-	/*
+	/**
 	 * "true" si le lieu est un chef-lieu
 	 * "false" sinon
 	 * "Transient" pour dire que la propriété ne doit pas être persisté en base de données
 	 */
 
 	@Transient
-	private boolean isChefLieu = false;
-
-	
+	private boolean isChefLieu = false;	
 	
 	//CONSTRUCTEURS
 	
@@ -113,7 +110,8 @@ public class Lieu {
 		this.departement = departement;
 	}
 	//---------
-	
+
+
 	public boolean estChefLieu() {
         if(this.departement.getChefLieu().codeInsee == this.codeInsee) {
         	this.isChefLieu = true;

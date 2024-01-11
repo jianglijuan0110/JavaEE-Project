@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import models.Celebrite;
@@ -37,14 +36,14 @@ public class MonumentController {
 	}
 	
 	//---------LISTE DES MONUMENTS
-	
+
 	@GetMapping("/monuments")
 	public String listMonuments(Model model) {
 		List<Monument> monuments = monumentService.getMonuments();
 		model.addAttribute("monuments", monuments);
 		return "List_Monuments";
 	}
-	
+
 	//---------CREER UN NOUVEAU MONUMENT
 	
 	@GetMapping("/monument/new")
@@ -181,5 +180,33 @@ public class MonumentController {
 
         return "monumentDetails";
     }
+
+	@GetMapping("/calculeD")
+	public String calculDistanceBetweenMonuments(@RequestParam(name = "m1", required = false) String geohash1,
+												 @RequestParam(name = "m2", required = false) String geohash2,
+												 Model model) {
+		List<Monument> monuments = monumentService.getMonuments();
+		model.addAttribute("monuments", monuments);
+
+		if (geohash1 != null && geohash2 != null) {
+			Monument m1 = monumentService.getMonumentById(geohash1);
+			Monument m2 = monumentService.getMonumentById(geohash2);
+			double distance = 0;
+
+			if (!m1.equals(m2)) {
+				distance = monumentService.calculeDistance(m1, m2);
+			}
+
+			model.addAttribute("distance", distance);
+			model.addAttribute("m1", m1);
+			model.addAttribute("m2", m2);
+		}
+
+		// Retournez le nom de la vue à afficher
+		return "Calcul_distance_monuments";
+	}
+
+
+
 
 }

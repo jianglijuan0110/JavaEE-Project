@@ -60,7 +60,7 @@ public class DepartementImpl implements DepartementService {
 			
 			departement.setChefLieu(chefLieu);
 			departementRepository.save(departement);
-			
+
 			chefLieu.setDepartement(departement);
 			lieuRepository.save(chefLieu);
 
@@ -103,11 +103,11 @@ public class DepartementImpl implements DepartementService {
 		departement.setNomDep(departementNew.getNomDep());
 		departement.setChefLieu(departementNew.getChefLieu());
 		departement.setReg(departementNew.getReg());
-
 		departementRepository.save(departement);
 
 	}
 	@Override
+	@Transactional
 	public void deleteDepartement(String dep){
 		List<Lieu> lieux = departementRepository.findById(dep).orElse(null).getLieux();
 		if (lieux != null) { 
