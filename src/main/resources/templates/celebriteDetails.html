@@ -37,8 +37,8 @@
                                             </div>
                                             <div style="float: right; display: flex; gap: 30px;" >
                                             	<a class="btn btn-primary px-4" th:href="@{/monument/{numMonum}/details(numMonum=${monument.geohash})}">Voir les célébrités</a>
-                                            	<a class="btn btn-primary px-4" th:href="@{/monument/{numMonum}/edit(numMonum=${monument.geohash})}">Modifier</a>
-                                            	<a class="btn btn-primary px-4" th:href="@{/monument/{numMonum}/delete(numMonum=${monument.geohash})}">Supprimer</a>
+                                            	<a class="btn btn-primary px-4" th:href="@{/monument/{numMonum}/edit(numMonum=${monument.geohash})}" sec:authorize="hasRole('ROLE_Voyagiste') or hasRole('ROLE_Admin')">Modifier</a>
+                                            	<a class="btn btn-primary px-4" th:href="@{/monument/{numMonum}/delete(numMonum=${monument.geohash})}" sec:authorize="hasRole('ROLE_Admin')">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>

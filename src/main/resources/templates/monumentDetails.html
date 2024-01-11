@@ -18,7 +18,7 @@
                         <!-- Section Monument details -->
                         <section>
                         	<div class="d-flex align-items-center justify-content-between mb-4">
-                                <a class="btn btn-primary px-4 py-3" th:href="@{/celebrite/new}">
+                                <a class="btn btn-primary px-4 py-3" th:href="@{/celebrite/new}" sec:authorize="hasRole('ROLE_Voyagiste') or hasRole('ROLE_Admin')">
                                     Ajouter une célébrité
                                 </a>
                             </div>
@@ -40,8 +40,8 @@
                                             </div>
                                             <div style="float: right; display: flex; gap: 30px;" >
                                             	<a class="btn btn-primary px-4" th:href="@{/celebrite/{numC}/details(numC=${celebrite.numCelebrite})}">Voir les monuments</a>
-                                            	<a class="btn btn-primary px-4" th:href="@{/celebrite/{numC}/edit(numC=${celebrite.numCelebrite})}">Modifier</a>
-                                            	<a class="btn btn-primary px-4" th:href="@{/celebrite/{numC}/delete(numC=${celebrite.numCelebrite})}">Supprimer</a>
+                                            	<a class="btn btn-primary px-4" th:href="@{/celebrite/{numC}/edit(numC=${celebrite.numCelebrite})}" sec:authorize="hasRole('ROLE_Voyagiste') or hasRole('ROLE_Admin')">Modifier</a>
+                                            	<a class="btn btn-primary px-4" th:href="@{/celebrite/{numC}/delete(numC=${celebrite.numCelebrite})}" sec:authorize="hasRole('ROLE_Admin')">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>
