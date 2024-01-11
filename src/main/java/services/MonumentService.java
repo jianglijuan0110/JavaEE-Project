@@ -24,6 +24,8 @@ public interface MonumentService {
 	
 	List<Monument> searchMonumentByDepartement(String nomDept);
 	
+	double calculeDistance(Monument m1, Monument m2);
+	
 	List<Monument> searchMonuments(String query);
 
 }

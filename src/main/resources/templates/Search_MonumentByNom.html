@@ -51,11 +51,16 @@
                                         <div class="col-lg-8">
                                             <div>
                                                 <ul>
-                                                    <li th:text="${monument.typeM}">Type de monument</li>
-                                                    <li th:text="${monument.proprietaire}">Proprietaire</li>
-                                                    <li th:text="${monument.longitude}">Longitude</li>
-                                                    <li th:text="${monument.latitude}">Latitude</li>
+                                                    <li>Type de monument : <span th:text="${monument.typeM}"></span></li>
+                                                    <li>Proprietaire : <span th:text="${monument.proprietaire}"></span></li>
+                                                    <li>Longitude : <span th:text="${monument.longitude}"></span></li>
+                                                    <li>Latitude : <span th:text="${monument.latitude}"></span></li>
                                                 </ul>
+                                            </div>
+                                            <div style="display: flex; gap: 30px; text-align: center;">
+                                            	<a class="btn btn-primary px-3" th:href="@{/monument/{numMonum}/details(numMonum=${monument.geohash})}">Voir les célébrités</a>
+                                            	<a class="btn btn-primary px-3" th:href="@{/monument/{numMonum}/edit(numMonum=${monument.geohash})}">Modifier</a>
+                                            	<a class="btn btn-primary px-3" th:href="@{/monument/{numMonum}/delete(numMonum=${monument.geohash})}">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>

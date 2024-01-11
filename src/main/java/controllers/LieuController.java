@@ -82,7 +82,7 @@ public class LieuController {
 			lieuService.deleteLieu(codeInsee);
 			}
 		else {
-			message = "Vous ne pouvez supprimer un chef lieu !";
+			message = "Vous ne pouvez supprimer un chef-lieu de département !";
 		}
 		// Add the message to redirect attributes
 		redirectAttributes.addAttribute("message", message);

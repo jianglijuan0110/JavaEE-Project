@@ -62,12 +62,14 @@ public class CelebriteController {
 		// Récupérer l'ID du monument à partir de la session
 	    String id = (String) session.getAttribute("monumentId");
 	    
-		celebriteService.saveCelebrite(id, celebrite);
+	    if (celebrite != null) {
+	    	celebriteService.saveCelebrite(id, celebrite);
+	    }
 		
 		// Supprimer l'ID du monument de la session une fois utilisé
 	    session.removeAttribute("monumentId");
 	    
-		return "redirect:/celebrites";
+		return "redirect:/monuments";
 
 	}
 	
@@ -91,8 +93,19 @@ public class CelebriteController {
 	@GetMapping("/celebrite/{numC}/delete")
 	public String deleteCelebrite(@PathVariable("numC") Integer numC) {
 		celebriteService.deleteCelebrite(numC);
-		return "redirect:/celebrites";
+		return "redirect:/monuments";
 
 	}
+	
+	@GetMapping("/celebrite/{numC}/details")
+    public String viewMonumentDetails(@PathVariable("numC") String numC, Model model, HttpSession session) {
+		Celebrite celebrite = celebriteService.getCelebriteById(Integer.parseInt(numC));
+        List<Monument> monuments = celebrite.getMonuments();
+
+        model.addAttribute("monuments", monuments);
+        model.addAttribute("celebrite", celebrite);
+
+        return "celebriteDetails";
+    }
 
 }
