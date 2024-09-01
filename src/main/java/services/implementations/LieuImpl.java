@@ -68,8 +68,8 @@ public class LieuImpl implements LieuService {
 	
 	@Override
 	@Transactional
-	public void deleteLieu(String codeInsee){
-		
+	public void deleteLieu(String codeInsee) {
+
 		List<Monument> monuments = lieuRepository.findById(codeInsee).orElse(null).getMonuments();
 		if (monuments != null) {
 			for (Monument m : monuments) {
@@ -81,6 +81,7 @@ public class LieuImpl implements LieuService {
 			}
 
 		}
+	}
 		
 
 }

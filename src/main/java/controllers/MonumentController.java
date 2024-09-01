@@ -142,31 +142,6 @@ public class MonumentController {
 	}
 	
 	//---------CALCUL DE DISTANCE
-	
-	@GetMapping("/calculeD")
-	public String calculDistanceBetweenMonuments(@RequestParam(name = "m1", required = false) String geohash1,
-												 @RequestParam(name = "m2", required = false) String geohash2,
-												 Model model) {
-		List<Monument> monuments = monumentService.getMonuments();
-		model.addAttribute("monuments", monuments);
-
-		if (geohash1 != null && geohash2 != null) {
-			Monument m1 = monumentService.getMonumentById(geohash1);
-			Monument m2 = monumentService.getMonumentById(geohash2);
-			double distance = 0;
-
-			if (!m1.equals(m2)) {
-				distance = monumentService.calculeDistance(m1, m2);
-			}
-
-			model.addAttribute("distance", distance);
-			model.addAttribute("m1", m1);
-			model.addAttribute("m2", m2);
-		}
-		
-		return "Calcul_distance_monuments";
-	}
-	
 	@GetMapping("/monument/{numMonum}/details")
     public String viewMonumentDetails(@PathVariable("numMonum") String numMonum, Model model, HttpSession session) {
         Monument monument = monumentService.getMonumentById(numMonum);
